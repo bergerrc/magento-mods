@@ -1,0 +1,77 @@
+<?php
+/**
+ */
+?>
+<?php if ( !$this->isDefaultStore() || ($this->isDefaultStore() && $this->getShowOnDefaultStore()) ):?>
+<div class="block">
+<div class="block-title"><strong>Loja</strong></div>
+<div class="block-content">
+<?php if ( $this->hasLogo() ):?> 
+	<a href="<?php echo $this->getStoreUrl();?>">
+	<img class="storelogo" title="<?php echo $this->getStoreName();?>"
+	src="<?php echo $this->getLogoUrl();?>"
+	alt="<?php echo $this->getStoreName();?>" /> 
+	</a>
+<?php else :?>
+<a href="<?php echo $this->getStoreUrl();?>">
+	<div class="nostorelogo"><span><?php echo $this->getStoreName();?></span></div>
+</a>
+<?php endif;?>
+<br>
+<table class="data-table">
+	<tbody>
+		<tr>
+			<th>Contato</th>
+			<td><?php echo $this->getVendorName();?><br />
+			</td>
+		</tr>
+		<tr>
+			<th>E-mail</th>
+			<td><?php echo $this->getEmail();?><br />
+			</td>
+		</tr>
+		<tr>
+			<th>Telefone</th>
+			<td><?php echo $this->getTelephone();?><br />
+			</td>
+		</tr>
+		<tr class="last">
+			<th>Endere&ccedil;o</th>
+			<td><?php echo $this->getAddress();?><br />
+			</td>
+		</tr>
+	</tbody>
+</table>
+
+</div>
+</div>
+<?php endif;?>
+<script type="text/javascript">
+function resizeText(e) // must be an inline element inside a block-level element
+{
+    e.style.whiteSpace = 'nowrap';
+    e.style.textAlign = 'center';
+    e.style.display = 'block'; // so centering takes effect
+
+	var defaults = {
+			maxFontPixels: 40,
+			innerTag: 'span'
+		};
+	var fontSize = defaults.maxFontPixels;
+	var maxWidth = e.parentNode.clientWidth;
+	var textWidth;
+	do {
+		e.style.fontSize = fontSize + 'px';
+		textWidth = e.parentNode.scrollWidth;
+		fontSize = fontSize - 1;
+	} while ( textWidth > maxWidth && fontSize > 24);
+	do {
+		e.style.fontSize = fontSize + 'px';
+		textWidth = e.parentNode.scrollWidth;
+		fontSize = fontSize + 1;
+	} while ( textWidth < maxWidth && fontSize <= maxFontPixels);
+}
+for( var i=0; i< $$('.nostorelogo span').size(); i++){
+	this.resizeText( $$('.nostorelogo span')[i]  );
+}
+</script>

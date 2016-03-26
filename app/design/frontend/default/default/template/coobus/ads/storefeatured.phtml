@@ -1,0 +1,50 @@
+<?php
+/**
+ */
+?>
+<div class="block">
+<div class="block-title"><strong>Lojas em Destaque</strong></div>
+<div class="block-content">
+<?php foreach( $this->getStoreCollection() as $store): ?>
+<div class="block block-banner">
+    <div class="block-content">
+        <a href="<?php echo $store->getUrl() ?>" title="<?php echo $this->getStoreName($store->getId()); ?>">
+        <?php if ( $this->getLogoUrl( $store->getId() ) ) :?>
+            <img src="<?php echo $this->getLogoUrl( $store->getId() ) ?>" alt="<?php echo $this->getStoreName($store->getId()); ?>" class="storelogo" />
+        <?php else :?>
+			<div class="nostorelogo"><span><?php echo $this->getStoreName($store->getId());?></span></div>
+        <?php endif;?>
+        </a>
+    </div>
+</div>
+<?php endforeach;?>
+</div>
+<script type="text/javascript">
+function resizeText(e) // must be an inline element inside a block-level element
+{
+    e.style.whiteSpace = 'nowrap';
+    e.style.textAlign = 'center';
+    e.style.display = 'block'; // so centering takes effect
+
+	var defaults = {
+			maxFontPixels: 40,
+			innerTag: 'span'
+		};
+	var fontSize = defaults.maxFontPixels;
+	var maxWidth = e.parentNode.clientWidth;
+	var textWidth;
+	do {
+		e.style.fontSize = fontSize + 'px';
+		textWidth = e.parentNode.scrollWidth;
+		fontSize = fontSize - 1;
+	} while ( textWidth > maxWidth && fontSize > 24);
+	do {
+		e.style.fontSize = fontSize + 'px';
+		textWidth = e.parentNode.scrollWidth;
+		fontSize = fontSize + 1;
+	} while ( textWidth < maxWidth && fontSize <= maxFontPixels);
+}
+for( var i=0; i< $$('.nostorelogo span').size(); i++){
+	this.resizeText( $$('.nostorelogo span')[i]  );
+}
+</script>

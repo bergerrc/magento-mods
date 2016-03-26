@@ -1,0 +1,9 @@
+<?xml version="1.0"?>
+<layout>
+    <checkout_cart_index>
+        <reference name="checkout.cart.totals">
+            <action method="setStyle"><value>hidden</value></action>
+        </reference>
+    </checkout_cart_index>
+    <!--block type="checkout/cart_totals" name="checkout.cart.totals" as="totals" template="checkout/cart/totals.phtml"/-->
+</layout>

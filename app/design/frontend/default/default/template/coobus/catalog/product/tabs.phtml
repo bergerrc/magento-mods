@@ -1,0 +1,57 @@
+<?php
+/**
+ *
+ **/
+?>
+<?php if ( !$this->getActiveTab() ) :?>
+<ul id="catalog-tabs">
+    <?php foreach ($this->getTabs() as $_index => $_tab): ?>
+        <?php if($this->getChild($_tab['alias'])): ?>
+        	<?php $defTab = ( !$_index )? $_tab['alias']: $defTab;?>
+    <li id="catalog_tabs_<?php echo $_tab['alias'] ?>" class="<?php echo !$_index?'first':(($_index==count($this->getTabs())-1)?'last':'')?>">
+        <a id="<?php echo $_tab['alias'] ?>" class="tab-item-link ajax notloaded" href="<?php echo $this->getUrl('coobus_catalog/index/tab',array('active'=>$_tab['alias']))?>"><?php echo $_tab['title']?></a>
+        <div id="<?php echo $_tab['alias'] ?>_content" class="catalog-tabs-content"></div> 
+    </li>
+        <?php endif; ?>
+    <?php endforeach; ?>
+</ul>
+<div id="loadingmask" style="display: none;">
+	<div class="loader" id="loading-mask-loader"><img src="<?php echo $this->getSkinUrl("images/opc-ajax-loader.gif")?>" alt="<?php echo $this->__('Loading...') ?>"/><?php echo $this->__('Loading...') ?></div>
+	<div id="loading-mask"></div>
+</div>
+<div id="tabcontainer" class="catalog-tabs-content"></div>
+<script type="text/javascript">
+//<![CDATA[
+    var FORM_KEY="<?php echo Mage::getSingleton('core/session')->getFormKey() ?>";
+    var catalogJsTabs = new catalogTabs('catalog-tabs', 'tabcontainer', '<?php echo $defTab;?>',false,'',[]);
+
+    var ajaxMask = new Class.create();
+    ajaxMask.prototype = {
+    	    initialize : function(image){
+		        if (varienGlobalEvents) {
+		        	varienGlobalEvents.attachEventHandler('tabChangeBefore', this.showMask);
+		        	varienGlobalEvents.attachEventHandler('showTab', this.hideMask);
+		        	varienGlobalEvents.attachEventHandler('pagerBeforeShow', this.showPagerMask);
+		        	varienGlobalEvents.attachEventHandler('showPager', this.hidePagerMask);
+		        	varienGlobalEvents.attachEventHandler('initPagers', catalogJsTabs.initializePagers);
+		        }
+    		},
+		    showMask: function(event){
+    			Element.show('loadingmask');
+		    },
+		    hideMask: function(event){
+		    	Element.hide('loadingmask');
+		    },
+		    showPagerMask: function(event){
+    			Element.show($$('#'+event.pager.tab+'_content #loadingmask_pager')[0]);
+		    },
+		    hidePagerMask: function(event){
+		    	Element.hide($$('#'+event.pager.tab+'_content #loadingmask_pager')[0]);
+		    }
+    }
+    mask = new ajaxMask();
+  //]]>
+</script>
+<?php else :?>
+<?php echo $this->getChildHtml( $this->getActiveTab() ); ?>
+<?php endif; ?>

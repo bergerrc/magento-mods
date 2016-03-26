@@ -1,0 +1,105 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<config>
+	<sections>
+		<design>
+			<groups>
+				<head>
+					<fields>
+						<google_site_verification  translate="label, comment" module="coobus_skin">
+							<label>Google Site Verification</label>
+							<frontend_type>text</frontend_type>
+							<sort_order>120</sort_order>
+							<show_in_default>1</show_in_default>
+							<show_in_website>1</show_in_website>
+							<show_in_store>1</show_in_store>
+							<comment>When you refer to this site on Google services you need to fill this code to verify that you owns this site.</comment>
+						</google_site_verification>
+					</fields>
+				</head>
+			</groups>
+		</design>
+		<shipping>
+			<groups>
+				<autocomplete translate="label" module="coobus_skin">
+					<label>Auto-Complete Shipping</label>
+					<frontend_type>text</frontend_type>
+					<sort_order>1</sort_order>
+					<show_in_default>1</show_in_default>
+					<show_in_website>1</show_in_website>
+					<show_in_store>1</show_in_store>
+					<fields>
+						<habilitar translate="label">
+							<label>Turn On Module</label>
+							<frontend_type>select</frontend_type>
+							<sort_order>10</sort_order>
+							<source_model>adminhtml/system_config_source_yesno</source_model>
+							<show_in_default>1</show_in_default>
+							<show_in_website>1</show_in_website>
+							<show_in_store>1</show_in_store>
+						</habilitar>
+						<base_url translate="label">
+							<label>Base Consult (URL)</label>
+							<frontend_type>select</frontend_type>
+							<sort_order>20</sort_order>
+							<source_model>coobus_skin/system_config_shipping_source_autocomplete</source_model>
+							<show_in_default>1</show_in_default>
+							<show_in_website>1</show_in_website>
+							<show_in_store>1</show_in_store>
+							<comment>You should use 4 lines in field shipping the configuracion of the name and client shipping.</comment>
+						</base_url>
+						<exibir_pais translate="label">
+							<label>Show Country</label>
+							<frontend_type>select</frontend_type>
+							<sort_order>30</sort_order>
+							<source_model>adminhtml/system_config_source_yesno</source_model>
+							<show_in_default>1</show_in_default>
+							<show_in_website>1</show_in_website>
+							<show_in_store>1</show_in_store>
+						</exibir_pais>
+					</fields>
+				</autocomplete>
+			</groups>
+		</shipping>
+		<catalog>
+			<groups>
+				<frontend>
+					<fields>
+						<max_image_width translate="label, comment" module="coobus_skin">
+							<label>Max Width of Product Image</label>
+							<frontend_type>text</frontend_type>
+							<sort_order>90</sort_order>
+							<show_in_default>1</show_in_default>
+							<show_in_website>1</show_in_website>
+							<show_in_store>1</show_in_store>
+							<comment>After the product saving system will minimize width of each image proportionally to this value.</comment>
+						</max_image_width>
+						<max_image_height translate="label, comment" module="coobus_skin">
+							<label>Max Height of Product Image</label>
+							<frontend_type>text</frontend_type>
+							<sort_order>91</sort_order>
+							<show_in_default>1</show_in_default>
+							<show_in_website>1</show_in_website>
+							<show_in_store>1</show_in_store>
+							<comment>After the product saving system will minimize height of each image proportionally to this value.</comment>
+						</max_image_height>
+					</fields>
+				</frontend>
+				<management>
+                    <show_in_store>1</show_in_store>
+					<fields>
+						<uploadtype translate="label, comment" module="coobus_skin">
+							<label>Utiliza upload simples ou múltiplo</label>
+							<source_model>adminhtml/system_config_source_yesno</source_model>
+							<frontend_type>select</frontend_type>
+							<sort_order>100</sort_order>
+							<show_in_default>1</show_in_default>
+							<show_in_website>1</show_in_website>
+							<show_in_store>1</show_in_store>
+							<comment>Respondendo 'sim' o upload será feito sem recurso do Flash Player que causa problemas em alguns navegadores</comment>
+						</uploadtype>
+					</fields>
+				</management>
+			</groups>
+		</catalog>
+	</sections>
+</config>

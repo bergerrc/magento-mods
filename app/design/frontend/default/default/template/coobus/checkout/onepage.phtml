@@ -1,0 +1,125 @@
+<?php
+/**
+ * Magento
+ *
+ * NOTICE OF LICENSE
+ *
+ * This source file is subject to the Academic Free License (AFL 3.0)
+ * that is bundled with this package in the file LICENSE_AFL.txt.
+ * It is also available through the world-wide-web at this URL:
+ * http://opensource.org/licenses/afl-3.0.php
+ * If you did not receive a copy of the license and are unable to
+ * obtain it through the world-wide-web, please send an email
+ * to license@magentocommerce.com so we can send you a copy immediately.
+ *
+ * DISCLAIMER
+ *
+ * Do not edit or add to this file if you wish to upgrade Magento to newer
+ * versions in the future. If you wish to customize Magento for your
+ * needs please refer to http://www.magentocommerce.com for more information.
+ *
+ * @category    design
+ * @package     base_default
+ * @copyright   Copyright (c) 2009 Irubin Consulting Inc. DBA Varien (http://www.varien.com)
+ * @license     http://opensource.org/licenses/afl-3.0.php  Academic Free License (AFL 3.0)
+ */
+?>
+<script type="text/javascript" src="<?php echo $this->getJsUrl('varien/accordion.js') ?>"></script>
+<script type="text/javascript" src="<?php echo $this->getSkinUrl('js/opcheckout.js') ?>"></script>
+<script type="text/javascript">countryRegions = <?php echo $this->helper('directory')->getRegionJson() ?></script>
+<script type="text/javascript">
+//<![CDATA[
+function buscar_end( local ) { 
+	if ($(local+':street1')) 	$(local+':street1').value = '';
+	if ($(local+':street2')) 	$(local+':street2').value = '';
+	if ($(local+':street3')) 	$(local+':street3').value = '';
+	if ($(local+':street4')) 	$(local+':street4').value = '';
+	if ($(local+':city')) 		$(local+':city').value = '';
+	if ($(local+':region')) 	$(local+':region').value = '';
+	if ($(local+':region_id')) 	$(local+':region_id').value = '';
+
+	var urlAjax = location.href;
+	var validarUrl = /^https:\/\//;
+
+	if ( urlAjax.match( validarUrl ) ) {
+		urlAjax = '<?php echo Mage::getBaseUrl("link", true)."shipping/ajax/address" ?>';
+	} else {
+		urlAjax = '<?php echo $this->getUrl("shipping/ajax/address") ?>';
+	}
+
+	new Ajax.Request( urlAjax, {method: 'POST',
+								parameters: 'cep='+$( local+':postcode' ).value,
+								evalScripts: true,
+								onLoading: function(transport) {
+									$('load-end-'+local).innerHTML = '<img src="<?php echo $this->getSkinUrl('images/opc-ajax-loader.gif');?>" /> <span style="color: #888;"><?php echo $this->__('Loading...') ?></span>';
+								},
+								onComplete: function(transport) {
+									$('load-end-'+local).innerHTML = '<a href="http://www.buscacep.correios.com.br/servicos/dnec/menuAction.do?Metodo=menuLogradouro" target="_blank"><?php echo $this->__('Dont know the cep?') ?></a>';
+								},
+								onSuccess: function(transport) {
+									if (200 == transport.status) {
+					                    try {
+					                    	var res = transport.responseText.evalJSON();
+	
+											if ( res.resultado > 0 ) {
+												$(local+':street1').value = res.tipo_logradouro+' '+res.logradouro;
+												//street2 = numero do endereco
+												//street3 = complemento
+												if ($(local+':street4')) 
+													$(local+':street4').value = res.bairro;
+												else
+													$(local+':street2').value = res.bairro;
+												$(local+':city').value = res.cidade;
+												$(local+':region').value = res.uf;
+
+												for (var obj in countryRegions['BR'] ) {
+													if ( res.uf == countryRegions['BR'][obj].code ) {
+														$(local+':region_id').value = obj;
+													} 
+												} 
+											}
+					                    } catch(e) {
+					                        //alert( e.message );
+					                    }
+									} else {
+										//alert( transport );
+									}
+				                },
+								onFailure: function() { /*document.getElementById("...").innerHTML = 'problemas...';*/ }
+							});
+}
+//]]>
+</script>
+<div class="page-title">
+    <h1><?php echo $this->__('Checkout') ?></h1>
+</div>
+
+<ol class="opc" id="checkoutSteps">
+<?php $i=0; foreach($this->getSteps() as $_stepId => $_stepInfo): ?>
+<?php if (!$this->getChild($_stepId) || !$this->getChild($_stepId)->isShow()): continue; endif; $i++ ?>
+    <li id="opc-<?php echo $_stepId ?>" class="section<?php echo !empty($_stepInfo['allow'])?' allow':'' ?><?php echo !empty($_stepInfo['complete'])?' saved':'' ?>">
+        <div class="step-title">
+            <span class="number"><?php echo $i ?></span>
+            <h2><?php echo $_stepInfo['label'] ?></h2>
+            <a href="#"><?php echo $this->__('Edit') ?></a>
+        </div>
+        <div id="checkout-step-<?php echo $_stepId ?>" class="step a-item" style="display:none;">
+            <?php echo $this->getChildHtml($_stepId) ?>
+        </div>
+    </li>
+<?php endforeach ?>
+</ol>
+<script type="text/javascript">
+//<![CDATA[
+    var accordion = new Accordion('checkoutSteps', '.step-title', true);
+    <?php if($this->getActiveStep()): ?>
+    accordion.openSection('opc-<?php echo $this->getActiveStep() ?>');
+    <?php endif ?>
+    var checkout = new Checkout(accordion,{
+        progress: '<?php echo $this->getUrl('checkout/onepage/progress') ?>',
+        review: '<?php echo $this->getUrl('checkout/onepage/review') ?>',
+        saveMethod: '<?php echo $this->getUrl('checkout/onepage/saveMethod') ?>',
+        failure: '<?php echo $this->getUrl('checkout/cart') ?>'}
+    );
+//]]>
+</script>

@@ -1,0 +1,145 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * Coobus Consultoria de Processos
+ *
+ * NOTICE OF LICENSE
+ *
+ * This source file is subject to the Open Software License (OSL).
+ * It is also available through the world-wide-web at this URL:
+ * http://opensource.org/licenses/osl-3.0.php
+ *
+ * @category   ACL
+ * @package    Coobus_StoreManager
+ * @copyright  Copyright (c) 2011 Coobus (http://www.coobus.com.br)
+ * @author     Ricardo Custódio <ricardo@coobus.com.br>
+ * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
+ */
+-->
+<config>
+    <modules>
+        <Coobus_Skin>
+            <version>0.1.0</version>
+        </Coobus_Skin>
+    </modules>
+    <global>
+    	<blocks>
+    		<adminhtml>
+            	<rewrite>
+            		<page_header>Coobus_Skin_Block_Admin_Page_Header</page_header>
+            		<media_uploader>Coobus_Skin_Block_Admin_Media_Uploader</media_uploader>
+            	</rewrite>
+    		</adminhtml>
+    		<page>
+    			<rewrite>
+    				<html_head>Coobus_Skin_Block_Page_Html_Head</html_head>
+    			</rewrite>
+    		</page>
+    	</blocks>
+        <models>
+            <coobus_skin>
+                <class>Coobus_Skin_Model</class>
+            </coobus_skin>
+            <catalog>
+            	<rewrite>
+            		<product_image>Coobus_Skin_Model_Catalog_Product_Image</product_image>
+            	</rewrite>
+            </catalog>
+        </models>
+        <blocks>
+            <coobus_skin>
+                <class>Coobus_Skin_Block</class>
+            </coobus_skin>
+        </blocks>
+        <helpers>
+            <coobus_skin>
+                <class>Coobus_Skin_Helper</class>
+            </coobus_skin>
+        </helpers>
+        <cms>
+        	<block>
+        		<tempate_filter>coobus_skin/template_filter</tempate_filter>
+            </block>
+        	<page>
+        		<tempate_filter>coobus_skin/template_filter</tempate_filter>
+            </page>
+        </cms>
+		<helpers>
+			<catalog>
+				<rewrite>
+					<image>Coobus_Skin_Helper_Image</image>
+				</rewrite>
+			</catalog>
+		</helpers>
+	</global>
+	<adminhtml>
+		<events>
+			<catalog_product_save_commit_after>
+    		    <observers>
+                    <coobus_skin_1>
+                        <type>singleton</type>
+                        <class>Coobus_Skin_Helper_Data</class>
+                        <method>productSave</method>
+                    </coobus_skin_1>
+				</observers>  
+			</catalog_product_save_commit_after>
+		</events>
+		<layout>
+            <updates>
+               <template>
+                  <file>coobus_skin.xml</file>
+               </template>
+            </updates>
+         </layout>
+	</adminhtml>
+	<frontend>
+		<layout>
+            <updates>
+               <template>
+                  <file>coobus_skin.xml</file>
+               </template>
+            </updates>
+         </layout>
+        <translate>
+            <modules>
+                <coobus_skin>
+                    <files>
+                        <default>Coobus_Skin.csv</default>
+                    </files>
+                </coobus_skin>
+            </modules>
+        </translate>
+		<routers>
+			<shipping>
+                <args>
+                    <modules>
+                    	<coobus_skin before="Mage_Shipping">Coobus_Skin</coobus_skin>
+                    </modules>
+                </args>
+			</shipping>
+		</routers>
+    </frontend>
+	<default>
+		<shipping>
+			<autocomplete>
+                <habilitar>1</habilitar>
+                <base_url>1</base_url>
+                <exibir_pais>0</exibir_pais>
+			</autocomplete>
+		</shipping>
+		<customer>
+            <address>
+                <street_lines>4</street_lines>
+                <suffix_options>2</suffix_options>
+                <dob_show>2</dob_show>
+                <gender_show>2</gender_show>
+            </address>
+		</customer>
+		<catalog>
+			<frontend>
+				<max_image_height>800</max_image_height>
+				<max_image_width>1280</max_image_width>
+			</frontend>
+		</catalog>
+	</default>
+</config>

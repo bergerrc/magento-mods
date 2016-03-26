@@ -1,0 +1,462 @@
+<?xml version="1.0"?>
+<config>
+   <sections>
+   		<catalog>
+            <groups>
+                <allproducts translate="label" module="coobus_catalog">
+                    <label>Tab All Products</label>
+                    <frontend_type>text</frontend_type>
+                    <sort_order>91</sort_order>
+                    <show_in_default>1</show_in_default>
+                    <show_in_website>1</show_in_website>
+                    <show_in_store>1</show_in_store>
+                    <fields>
+                        <layout translate="label">
+                            <label>Layout</label>
+                            <frontend_type>select</frontend_type>
+                            <source_model>page/source_layout</source_model>
+                            <sort_order>4</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>0</show_in_website>
+                            <show_in_store>0</show_in_store>
+                        </layout>
+                        <number_of_items translate="label comment">
+                            <label>Number Of Items in Main Block</label>
+                            <comment>How many products will be showed in main block?</comment>
+                            <frontend_type>text</frontend_type>
+                            <sort_order>6</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                        </number_of_items>
+                        <number_of_items_per_row translate="label comment">
+                            <label>Number Of Items per row in Main Block</label>
+                            <comment>How many products will be showed per row?</comment>
+                            <frontend_type>text</frontend_type>
+                            <sort_order>7</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                        </number_of_items_per_row>
+                        <thumb_width translate="label comment">
+                            <label>Width of thumbnail image</label>
+                            <frontend_type>text</frontend_type>
+                            <sort_order>8</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                        </thumb_width>
+                        <thumb_ratio translate="label comment">
+                            <label>Proportional ratio of thumbnail image (width:height)</label>
+                            <frontend_type>text</frontend_type>
+                            <sort_order>9</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                        </thumb_ratio>
+                    </fields>
+                </allproducts>
+                <featuredproducts translate="label" module="coobus_catalog">
+                    <label>Tab Featured Products</label>
+                    <frontend_type>text</frontend_type>
+                    <sort_order>92</sort_order>
+                    <show_in_default>1</show_in_default>
+                    <show_in_website>1</show_in_website>
+                    <show_in_store>1</show_in_store>
+                    <fields>
+                        <heading translate="label comment">
+                            <label>Heading</label>
+                            <frontend_type>text</frontend_type>
+                            <sort_order>0</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                        </heading>
+                        <meta_title translate="label comment">
+                            <label>Meta Title</label>
+                            <frontend_type>text</frontend_type>
+                            <sort_order>1</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                        </meta_title>
+                        <meta_description translate="label comment">
+                            <label>Meta Description</label>
+                            <frontend_type>textarea</frontend_type>
+                            <sort_order>2</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                        </meta_description>
+                        <meta_keywords translate="label comment">
+                            <label>Meta Keywords</label>
+                            <frontend_type>textarea</frontend_type>
+                            <sort_order>3</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                        </meta_keywords>
+                        <layout translate="label">
+                            <label>Layout</label>
+                            <frontend_type>select</frontend_type>
+                            <source_model>page/source_layout</source_model>
+                            <sort_order>4</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>0</show_in_website>
+                            <show_in_store>0</show_in_store>
+                        </layout>
+                        <product_sort_by translate="label">
+                            <label>Sort By in Main Block</label>
+                            <comment>Main block is used in content section of the site</comment>
+                            <frontend_type>select</frontend_type>
+                            <source_model>coobus_catalog/system_config_source_sort</source_model>
+                            <sort_order>5</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>0</show_in_website>
+                            <show_in_store>0</show_in_store>
+                        </product_sort_by>
+                        <number_of_items translate="label comment">
+                            <label>Number Of Items in Main Block</label>
+                            <comment>How many products will be showed in main block?</comment>
+                            <frontend_type>text</frontend_type>
+                            <sort_order>6</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                        </number_of_items>
+                        <number_of_items_per_row translate="label comment">
+                            <label>Number Of Items per row in Main Block</label>
+                            <comment>How many products will be showed per row?</comment>
+                            <frontend_type>text</frontend_type>
+                            <sort_order>7</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                        </number_of_items_per_row>
+                        <thumb_width translate="label comment">
+                            <label>Width of thumbnail image</label>
+                            <frontend_type>text</frontend_type>
+                            <sort_order>8</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                        </thumb_width>
+                        <thumb_ratio translate="label comment">
+                            <label>Proportional ratio of thumbnail image (width:height)</label>
+                            <frontend_type>text</frontend_type>
+                            <sort_order>9</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                        </thumb_ratio>
+                    </fields>
+                </featuredproducts>
+                <newestproducts translate="label" module="coobus_catalog">
+                    <label>Tab Newest Products</label>
+                    <frontend_type>text</frontend_type>
+                    <sort_order>93</sort_order>
+                    <show_in_default>1</show_in_default>
+                    <show_in_website>1</show_in_website>
+                    <show_in_store>1</show_in_store>
+                    <fields>
+                        <layout translate="label">
+                            <label>Layout</label>
+                            <frontend_type>select</frontend_type>
+                            <source_model>page/source_layout</source_model>
+                            <sort_order>4</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>0</show_in_website>
+                            <show_in_store>0</show_in_store>
+                        </layout>
+                        <number_of_items translate="label comment">
+                            <label>Number Of Items in Main Block</label>
+                            <comment>How many products will be showed in main block?</comment>
+                            <frontend_type>text</frontend_type>
+                            <sort_order>6</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                        </number_of_items>
+                        <number_of_items_per_row translate="label comment">
+                            <label>Number Of Items per row in Main Block</label>
+                            <comment>How many products will be showed per row?</comment>
+                            <frontend_type>text</frontend_type>
+                            <sort_order>7</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                        </number_of_items_per_row>
+                        <max_number_of_pages translate="label comment">
+                            <label>Maximum Number Of Pages</label>
+                            <comment>How many pages will be showed?</comment>
+                            <frontend_type>text</frontend_type>
+                            <sort_order>8</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                        </max_number_of_pages>
+                        <thumb_width translate="label comment">
+                            <label>Width of thumbnail image</label>
+                            <frontend_type>text</frontend_type>
+                            <sort_order>9</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                        </thumb_width>
+                        <thumb_ratio translate="label comment">
+                            <label>Proportional ratio of thumbnail image (width:height)</label>
+                            <frontend_type>text</frontend_type>
+                            <sort_order>10</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                        </thumb_ratio>
+                    </fields>
+                </newestproducts>
+                <mostviewedproducts translate="label" module="coobus_catalog">
+                    <label>Tab Most Viewed Products</label>
+                    <frontend_type>text</frontend_type>
+                    <sort_order>94</sort_order>
+                    <show_in_default>1</show_in_default>
+                    <show_in_website>1</show_in_website>
+                    <show_in_store>1</show_in_store>
+                    <fields>
+                        <layout translate="label">
+                            <label>Layout</label>
+                            <frontend_type>select</frontend_type>
+                            <source_model>page/source_layout</source_model>
+                            <sort_order>4</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>0</show_in_website>
+                            <show_in_store>0</show_in_store>
+                        </layout>
+                        <number_of_items translate="label comment">
+                            <label>Number Of Items in Main Block</label>
+                            <comment>How many products will be showed in main block?</comment>
+                            <frontend_type>text</frontend_type>
+                            <sort_order>6</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                        </number_of_items>
+                        <number_of_items_per_row translate="label comment">
+                            <label>Number Of Items per row in Main Block</label>
+                            <comment>How many products will be showed per row?</comment>
+                            <frontend_type>text</frontend_type>
+                            <sort_order>7</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                        </number_of_items_per_row>
+                        <time_limit_in_days translate="label comment">
+                            <label>Time Limit in Main Block</label>
+                            <comment>How many days products will be compared?</comment>
+                            <frontend_type>text</frontend_type>
+                            <sort_order>7</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                        </time_limit_in_days>
+                        <thumb_width translate="label comment">
+                            <label>Width of thumbnail image</label>
+                            <frontend_type>text</frontend_type>
+                            <sort_order>8</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                        </thumb_width>
+                        <thumb_ratio translate="label comment">
+                            <label>Proportional ratio of thumbnail image (width:height)</label>
+                            <frontend_type>text</frontend_type>
+                            <sort_order>9</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                        </thumb_ratio>
+                    </fields>
+                </mostviewedproducts>
+                <mostsoldproducts translate="label" module="coobus_catalog">
+                    <label>Tab Most Sold Products</label>
+                    <frontend_type>text</frontend_type>
+                    <sort_order>95</sort_order>
+                    <show_in_default>1</show_in_default>
+                    <show_in_website>1</show_in_website>
+                    <show_in_store>1</show_in_store>
+                    <fields>
+                        <layout translate="label">
+                            <label>Layout</label>
+                            <frontend_type>select</frontend_type>
+                            <source_model>page/source_layout</source_model>
+                            <sort_order>4</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>0</show_in_website>
+                            <show_in_store>0</show_in_store>
+                        </layout>
+                        <product_sort_by translate="label">
+                            <label>Sort By in Main Block</label>
+                            <comment>Main block is used in content section of the site</comment>
+                            <frontend_type>select</frontend_type>
+                            <source_model>coobus_catalog/system_config_source_sort</source_model>
+                            <sort_order>5</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>0</show_in_website>
+                            <show_in_store>0</show_in_store>
+                        </product_sort_by>
+                        <number_of_items translate="label comment">
+                            <label>Number Of Items in Main Block</label>
+                            <comment>How many products will be showed in main block?</comment>
+                            <frontend_type>text</frontend_type>
+                            <sort_order>6</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                        </number_of_items>
+                        <number_of_items_per_row translate="label comment">
+                            <label>Number Of Items per row in Main Block</label>
+                            <comment>How many products will be showed per row?</comment>
+                            <frontend_type>text</frontend_type>
+                            <sort_order>7</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                        </number_of_items_per_row>
+                        <time_limit_in_days translate="label comment">
+                            <label>Time Limit in Main Block</label>
+                            <comment>How many days products will be compared?</comment>
+                            <frontend_type>text</frontend_type>
+                            <sort_order>7</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                        </time_limit_in_days>
+                        <thumb_width translate="label comment">
+                            <label>Width of thumbnail image</label>
+                            <frontend_type>text</frontend_type>
+                            <sort_order>8</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                        </thumb_width>
+                        <thumb_ratio translate="label comment">
+                            <label>Proportional ratio of thumbnail image (width:height)</label>
+                            <frontend_type>text</frontend_type>
+                            <sort_order>9</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                        </thumb_ratio>
+                    </fields>
+                </mostsoldproducts>
+                <management>
+                    <label>Manage Products</label>
+                    <sort_order>200</sort_order>
+                    <show_in_default>1</show_in_default>
+                    <show_in_website>1</show_in_website>
+                    <fields>                
+                        <showcolumns translate="label">
+                            <label>Show Columns</label>
+                            <frontend_type>multiselect</frontend_type>
+                            <source_model>coobus_catalog/system_config_source_columns_show</source_model>
+                            <sort_order>10</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                        </showcolumns>
+                        <truncatelongtextafter translate="label">
+                            <label>Truncate Long Texts After X Characters </label>
+                            <frontend_type>text</frontend_type>
+                            <sort_order>30</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                        </truncatelongtextafter>
+                        <orderedcolumns>
+                        	<label>Columns Order</label>
+                        	<frontend_type>text</frontend_type>
+                        	<sort_order>20</sort_order>
+                        	<show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                        </orderedcolumns>
+						<showurl translate="label comment">
+                            <label>Show Image Url</label>
+                            <comment>(When product image is hidden for that row)</comment>
+                            <frontend_type>select</frontend_type>
+                            <source_model>adminhtml/system_config_source_yesno</source_model>
+                            <sort_order>31</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                        </showurl>
+                        <showbydefault translate="label comment">
+                            <label>Show Image By Default</label>
+                            <comment>If your grid has a large page size by default this could get slow.</comment>
+                            <frontend_type>select</frontend_type>
+                            <source_model>adminhtml/system_config_source_yesno</source_model>
+                            <sort_order>32</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                        </showbydefault>
+                        <width translate="label comment">
+                            <label>Image Width</label>
+                            <frontend_type>text</frontend_type>
+                            <sort_order>33</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                        </width>
+                        <height translate="label comment">
+                            <label>Image Height</label>
+                            <frontend_type>text</frontend_type>
+                            <sort_order>40</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                        </height>
+						<limit translate="label">
+                            <label>Page Size</label>
+                            <frontend_type>text</frontend_type>
+                            <sort_order>50</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                        </limit>
+                        <page translate="label">
+                            <label>Initial Page Number</label>
+                            <frontend_type>text</frontend_type>
+                            <sort_order>60</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                        </page>
+                        <sort translate="label comment">
+                            <label>Sort Column</label>
+                            <comment>The selected column must be also selected above if it's not already there</comment>
+                            <frontend_type>select</frontend_type>
+                            <source_model>coobus_catalog/system_config_source_columns_show</source_model>
+                            <sort_order>70</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                        </sort>
+                        <dir translate="label">
+                            <label>Sort Column Direction</label>
+                            <frontend_type>select</frontend_type>
+                            <source_model>coobus_catalog/system_config_source_sort_direction</source_model>
+                            <sort_order>80</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                        </dir>
+                        <exportprofile_csv translate="label">
+                            <label>CSV Export Profile</label>
+                            <frontend_type>select</frontend_type>
+                            <source_model>coobus_catalog/system_config_source_dataflow_profile</source_model>
+                            <sort_order>90</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                        </exportprofile_csv>
+                        <exportprofile_xml translate="label">
+                            <label>XML Excel Export Profile</label>
+                            <frontend_type>select</frontend_type>
+                            <source_model>coobus_catalog/system_config_source_dataflow_profile</source_model>
+                            <sort_order>99</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                        </exportprofile_xml>
+                    </fields>
+                </management>
+			</groups>
+        </catalog>
+</sections>
+</config>

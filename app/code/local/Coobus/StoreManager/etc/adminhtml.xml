@@ -1,0 +1,71 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * Coobus Consultoria de Processos
+ *
+ * NOTICE OF LICENSE
+ *
+ * This source file is subject to the Open Software License (OSL).
+ * It is also available through the world-wide-web at this URL:
+ * http://opensource.org/licenses/osl-3.0.php
+ *
+ * @category   ACL
+ * @package    Coobus_StoreManager
+ * @copyright  Copyright (c) 2011 Coobus (http://www.coobus.com.br)
+ * @author     Ricardo Custódio <ricardo@coobus.com.br>
+ * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
+ */
+-->
+<config>
+    <acl>
+		<resources>
+		    <admin>
+		        <children>
+		            <system>
+		                <children>
+                			<store-owner translate="title">
+                				<title>Owner of Store</title>
+                              	<sort_order>0</sort_order>
+                			</store-owner>
+                			<config>
+                				<children>
+                					<store_general translate="title" module="coobus_storemanager">
+                						<title>Store Fullfillment Section</title>
+                						<sort_order>95</sort_order>
+                					</store_general>
+                					<store_design translate="title" module="coobus_storemanager">
+                						<title>Store Design Section</title>
+                						<sort_order>96</sort_order>
+                					</store_design>
+                					<store_cataloginventory translate="title" module="coobus_storemanager">
+                						<title>Store Inventory Section</title>
+                						<sort_order>97</sort_order>
+                					</store_cataloginventory>
+                					<store_payment translate="title" module="coobus_storemanager">
+                						<title>Store Payment Section</title>
+                						<sort_order>98</sort_order>
+                					</store_payment>
+                					<store_shipping translate="title" module="coobus_storemanager">
+                						<title>Store Shipping Section</title>
+                						<sort_order>99</sort_order>
+                					</store_shipping>
+                				</children>
+                			</config>
+		                </children>
+		            </system>
+		        </children>
+		    </admin>      
+		</resources> 
+    </acl>
+        <menu>
+            <system>
+                <children>
+                    <revenue translate="title">
+                        <title>Revenue Share</title> 
+                        <action>adminhtml/sales_order/revenue</action>
+			   <sort_order>999</sort_order>
+                    </revenue>
+                </children>
+            </system>
+        </menu> 
+</config>

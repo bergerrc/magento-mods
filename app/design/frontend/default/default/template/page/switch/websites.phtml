@@ -1,0 +1,47 @@
+<?php
+/**
+ * Magento
+ *
+ * NOTICE OF LICENSE
+ *
+ * This source file is subject to the Academic Free License (AFL 3.0)
+ * that is bundled with this package in the file LICENSE_AFL.txt.
+ * It is also available through the world-wide-web at this URL:
+ * http://opensource.org/licenses/afl-3.0.php
+ * If you did not receive a copy of the license and are unable to
+ * obtain it through the world-wide-web, please send an email
+ * to license@magentocommerce.com so we can send you a copy immediately.
+ *
+ * DISCLAIMER
+ *
+ * Do not edit or add to this file if you wish to upgrade Magento to newer
+ * versions in the future. If you wish to customize Magento for your
+ * needs please refer to http://www.magentocommerce.com for more information.
+ *
+ * @category    design
+ * @package     base_default
+ * @copyright   Copyright (c) 2010 Magento Inc. (http://www.magentocommerce.com)
+ * @license     http://opensource.org/licenses/afl-3.0.php  Academic Free License (AFL 3.0)
+ */
+?>
+<?php 
+/**
+ * Websites switcher template
+ *
+ * @see Mage_Core_Block_Store_Switcher
+ */
+?>
+<?php
+$websites = Mage::app()->getWebsites();
+
+if (count($websites) > 1): ?>
+<div class="website-switcher">
+    <label for="select-website"><?php echo $this->__('Select Store:') ?></label>
+    <select id="select-website" title="<?php echo $this->__('Select Store') ?>" onchange="location.href=this.value">
+    <?php foreach ($websites as $website): // print out each website name and code as a dropdown box item ?>
+        <?php $_selected = $website->getCode() == Mage::app()->getWebsite()->getCode() ? ' selected="selected"' : '' ?>
+        <option value="<?php echo $website->getDefaultStore()->getBaseUrl()?>"<?php echo $_selected ?>><?php echo $this->htmlEscape($website->getName()) ?></option>
+    <?php endforeach; ?>
+    </select>
+</div>
+<?php endif; ?>

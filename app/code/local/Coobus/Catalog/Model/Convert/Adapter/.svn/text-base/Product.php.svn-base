@@ -1,0 +1,474 @@
+<?php
+
+/**
+ * 
+ * To import a custom option you need to add a new column to your CSV import file. The name of the column determines the name and type of the option. The format is: Name:Type:Is Required. For example, to create a required drop down option called "Size" your column header should be: Size:drop_down:1 (1 for required, 0 for optional). Here is a list of the Types, these are taken from the "Custom Options" screen in the Magento admin area.
+field: Field
+area: Area
+file: File
+drop_down: Drop-down
+radio: Radio Buttons
+checkbox: Checkbox
+multiple: Multiple Select
+date: Date
+date_time: Date & Time
+time: Time
+For types with multiple values (drop_down, radio, checkbox, multiple) you can specify using a | separator. Example for Small, Medium, Large you would use "Small|Medium|Large" as the value for the "Size:drop_down:1" column in your csv file.
+
+Here's paired down example of the import format:
+
+sku,name,description,price,Size:drop_down:1
+T-Shirt1,T-Shirt,A T-Shirt,5.00,Small|Medium|Large
+T-Shirt2,T-Shirt2,Another T-Shirt,6.00,XS|S|M|L|XL
+
+In addition you can specify an addition price and SKU modifier for each option value. The syntax for this is Value:[fixed|percent]:price_modifier. For example if you have a product which costs $5 more for a Medium and $10 more for a large you would the following as the option value.
+
+Small|Medium:fixed:5|Large:fixed:10
+
+Here's the first example with additional price/sku modifiers.
+
+sku,name,description,price,Size:drop_down:1
+T-Shirt1,T-Shirt,A T-Shirt,5.00,Small:fixed:0:-SM|Medium:percent:2:-MED|Large:percent:3:-LRG
+T-Shirt2,T-Shirt2,Another T-Shirt,6.00,XS:fixed:0:-XS|S:fixed:0:-S|M:fixed:1:-M|L:fixed:1:-L|XL:fixed:2:-XL
+ */
+
+class Coobus_Catalog_Model_Convert_Adapter_Product
+    extends Mage_Catalog_Model_Convert_Adapter_Product
+{
+   
+    public function saveRow(array $importData)
+    {
+        $product = $this->getProductModel()
+            ->reset();
+
+        if (empty($importData['store'])) {
+            if (!is_null($this->getBatchParams('store'))) {
+                $store = $this->getStoreById($this->getBatchParams('store'));
+            } else {
+                $message = Mage::helper('catalog')->__(
+                    'Skipping import row, required field "%s" is not defined.',
+                    'store'
+                );
+                Mage::throwException($message);
+            }
+        }
+        else {
+            $store = $this->getStoreByCode($importData['store']);
+        }
+
+        if ($store === false) {
+            $message = Mage::helper('catalog')->__(
+                'Skipping import row, store "%s" field does not exist.',
+                $importData['store']
+            );
+            Mage::throwException($message);
+        }
+
+        if (empty($importData['sku'])) {
+            $message = Mage::helper('catalog')->__('Skipping import row, required field "%s" is not defined.', 'sku');
+            Mage::throwException($message);
+        }
+        $product->setStoreId(Mage_Catalog_Model_Abstract::DEFAULT_STORE_ID);
+        $productId = $product->getIdBySku($importData['sku']);
+
+        if ($productId) {
+            $product->load($productId);
+        }
+        else {
+            $productTypes = $this->getProductTypes();
+            $productAttributeSets = $this->getProductAttributeSets();
+
+            /**
+             * Check product define type
+             */
+            if (empty($importData['type']) || !isset($productTypes[strtolower($importData['type'])])) {
+                $value = isset($importData['type']) ? $importData['type'] : '';
+                $message = Mage::helper('catalog')->__(
+                    'Skip import row, is not valid value "%s" for field "%s"',
+                    $value,
+                    'type'
+                );
+                Mage::throwException($message);
+            }
+            $product->setTypeId($productTypes[strtolower($importData['type'])]);
+            /**
+             * Check product define attribute set
+             */
+            if (empty($importData['attribute_set']) || !isset($productAttributeSets[$importData['attribute_set']])) {
+                $value = isset($importData['attribute_set']) ? $importData['attribute_set'] : '';
+                $message = Mage::helper('catalog')->__(
+                    'Skip import row, the value "%s" is invalid for field "%s"',
+                    $value,
+                    'attribute_set'
+                );
+                Mage::throwException($message);
+            }
+            $product->setAttributeSetId($productAttributeSets[$importData['attribute_set']]);
+
+            foreach ($this->_requiredFields as $field) {
+                $attribute = $this->getAttribute($field);
+                if (!isset($importData[$field]) && $attribute && $attribute->getIsRequired()) {
+                    $message = Mage::helper('catalog')->__(
+                        'Skipping import row, required field "%s" for new products is not defined.',
+                        $field
+                    );
+                    Mage::throwException($message);
+                }
+            }
+        }
+
+        $this->setProductTypeInstance($product);
+
+        if (isset($importData['category_ids'])) {
+            $product->setCategoryIds($importData['category_ids']);
+        }
+        if (isset($importData['categories'])) {
+            $categoryIds = $this->_addCategories($importData['categories'], $store);
+            if ($categoryIds) {
+                $product->setCategoryIds($categoryIds);
+            }
+        }
+        foreach ($this->_ignoreFields as $field) {
+            if (isset($importData[$field])) {
+                unset($importData[$field]);
+            }
+        }
+
+        if ($store->getId() != 0) {
+        	if ( $productId ){
+				$websiteIds = $product->getWebsiteIds();
+        	}
+                
+            if (!is_array($websiteIds)) {
+                $websiteIds = array();
+            }
+            if (!in_array($store->getWebsiteId(), $websiteIds)) {
+                $websiteIds[] = $store->getWebsiteId();
+            }
+            $product->setWebsiteIds( $websiteIds );
+            $product->setStoreIds( array($store->getId()) );
+        }
+        
+        if (isset($importData['websites'])) {
+            $websiteIds = $product->getWebsiteIds();
+            if (!is_array($websiteIds) || !$store->getId()) {
+                $websiteIds = array();
+            }
+            $websiteCodes = explode(',', $importData['websites']);
+            foreach ($websiteCodes as $websiteCode) {
+                try {
+                    $website = Mage::app()->getWebsite(trim($websiteCode));
+                    if (!in_array($website->getId(), $websiteIds)) {
+                        $websiteIds[] = $website->getId();
+                    }
+                }
+                catch (Exception $e) {}
+            }
+            $product->setWebsiteIds($websiteIds);
+            unset($websiteIds);
+        }
+		$custom_options = array();
+        foreach ($importData as $field => $value) {
+            if (in_array($field, $this->_inventoryFields)) {
+                continue;
+            }
+            if (is_null($value)) {
+                continue;
+            }
+
+            $attribute = $this->getAttribute($field);
+            if (!$attribute) {
+				/* CUSTOM OPTION CODE */
+				if(strpos($field,':')!==FALSE && strlen($value)) {
+				   $values=explode('|',$value);
+				   if(count($values)>0) {
+				   	  $product->setData("has_options", 1);
+				      @list($title,$type,$is_required,$sort_order) = explode(':',$field);
+				      $title = ucfirst(str_replace('_',' ',$title));
+				      $custom_options[] = array(
+				         'is_delete'=>0,
+				         'title'=>$title,
+				         'previous_group'=>'',
+				         'previous_type'=>'',
+				         'type'=>$type,
+				         'is_require'=>$is_required,
+				         'sort_order'=>$sort_order,
+				         'values'=>array()
+				      );
+				      foreach($values as $v) {
+				         $parts = explode(':',$v);
+				         $title = $parts[0];
+				         if(count($parts)>1) {
+				            $price_type = $parts[1];
+				         } else {
+				            $price_type = 'fixed';
+				         }
+				         if(count($parts)>2) {
+				            $price = $parts[2];
+				         } else {
+				            $price =0;
+				         }
+				         if(count($parts)>3) {
+				            $sku = $parts[3];
+				         } else {
+				            $sku='';
+				         }
+				         if(count($parts)>4) {
+				            $sort_order = $parts[4];
+				         } else {
+				            $sort_order = 0;
+				         }
+				         switch($type) {
+				            case 'file':
+				               /* TODO */
+				               break;
+				               
+				            case 'field':
+				            case 'area':
+				               $custom_options[count($custom_options) - 1]['max_characters'] = $sort_order;
+				               /* NO BREAK */
+				               
+				            case 'date':
+				            case 'date_time':
+				            case 'time':
+				               $custom_options[count($custom_options) - 1]['price_type'] = $price_type;
+				               $custom_options[count($custom_options) - 1]['price'] = $price;
+				               $custom_options[count($custom_options) - 1]['sku'] = $sku;
+				               break;
+				                                          
+				            case 'drop_down':
+				            case 'radio':
+				            case 'checkbox':
+				            case 'multiple':
+				            default:
+				               $custom_options[count($custom_options) - 1]['values'][]=array(
+				                  'is_delete'=>0,
+				                  'title'=>$title,
+				                  'option_type_id'=>-1,
+				                  'price_type'=>$price_type,
+				                  'price'=>$price,
+				                  'sku'=>$sku,
+				                  'sort_order'=>$sort_order,
+				               );
+				               break;
+				         }
+				      }
+				   }
+				}
+				/* END CUSTOM OPTION CODE */            	
+                continue;
+            }
+
+            $isArray = false;
+            $setValue = $value;
+
+            if ($attribute->getFrontendInput() == 'multiselect') {
+                $value = explode(self::MULTI_DELIMITER, $value);
+                $isArray = true;
+                $setValue = array();
+            }
+
+            if ($value && $attribute->getBackendType() == 'decimal') {
+                $setValue = $this->getNumber($value);
+            }
+
+            if ($attribute->usesSource()) {
+                $options = $attribute->getSource()->getAllOptions(false);
+
+                if ($isArray) {
+                    foreach ($options as $item) {
+                        if (in_array($item['label'], $value)) {
+                            $setValue[] = $item['value'];
+                        }
+                    }
+                } else {
+                    $setValue = false;
+                    foreach ($options as $item) {
+                        if ($item['label'] == $value) {
+                            $setValue = $item['value'];
+                        }
+                    }
+                }
+            }
+
+            $product->setData($field, $setValue);
+        }
+
+        if (!$product->getVisibility()) {
+            $product->setVisibility(Mage_Catalog_Model_Product_Visibility::VISIBILITY_NOT_VISIBLE);
+        }
+
+        $stockData = array();
+        $inventoryFields = isset($this->_inventoryFieldsProductTypes[$product->getTypeId()])
+            ? $this->_inventoryFieldsProductTypes[$product->getTypeId()]
+            : array();
+        foreach ($inventoryFields as $field) {
+            if (isset($importData[$field])) {
+                if (in_array($field, $this->_toNumber)) {
+                    $stockData[$field] = $this->getNumber($importData[$field]);
+                }
+                else {
+                    $stockData[$field] = $importData[$field];
+                }
+            }
+        }
+        $product->setStockData($stockData);
+
+        $mediaGalleryBackendModel = $this->getAttribute('media_gallery')->getBackend();
+
+        $arrayToMassAdd = array();
+
+        foreach ($product->getMediaAttributes() as $mediaAttributeCode => $mediaAttribute) {
+            if (isset($importData[$mediaAttributeCode])) {
+                $file = trim($importData[$mediaAttributeCode]);
+                if (!empty($file) && !$mediaGalleryBackendModel->getImage($product, $file)) {
+                    $arrayToMassAdd[] = array('file' => trim($file), 'mediaAttribute' => $mediaAttributeCode);
+                }
+            }
+        }
+
+        $addedFilesCorrespondence = $mediaGalleryBackendModel->addImagesWithDifferentMediaAttributes(
+            $product,
+            $arrayToMassAdd, Mage::getBaseDir('media') . DS . 'import',
+            false,
+            false
+        );
+
+        foreach ($product->getMediaAttributes() as $mediaAttributeCode => $mediaAttribute) {
+            $addedFile = '';
+            if (isset($importData[$mediaAttributeCode . '_label'])) {
+                $fileLabel = trim($importData[$mediaAttributeCode . '_label']);
+                if (isset($importData[$mediaAttributeCode])) {
+                    $keyInAddedFile = array_search($importData[$mediaAttributeCode],
+                        $addedFilesCorrespondence['alreadyAddedFiles']);
+                    if ($keyInAddedFile !== false) {
+                        $addedFile = $addedFilesCorrespondence['alreadyAddedFilesNames'][$keyInAddedFile];
+                    }
+                }
+
+                if (!$addedFile) {
+                    $addedFile = $product->getData($mediaAttributeCode);
+                }
+                if ($fileLabel && $addedFile) {
+                    $mediaGalleryBackendModel->updateImage($product, $addedFile, array('label' => $fileLabel));
+                }
+            }
+        }
+
+		/**
+		 * Allows you to import multiple images for each product.
+		 * Simply add a 'gallery' column to the import file, and separate
+		 * each image with a colon.
+		 */
+	        try {
+	                $galleryData = explode(',',$importData["gallery"]);
+	                foreach($galleryData as $gallery_img)
+					/**
+					 * @param directory where import image resides
+					 * @param leave 'null' so that it isn't imported as thumbnail, base, or small
+					 * @param false = the image is copied, not moved from the import directory to it's new location
+					 * @param false = not excluded from the front end gallery
+					 */
+	                {
+	                        $product->addImageToMediaGallery(Mage::getBaseDir('media') . DS . 'import' . $gallery_img, null, false, false);
+	                }
+	            }
+	        catch (Exception $e) {}        
+		/* End Modification */
+        
+        $product->setIsMassupdate(true);
+        $product->setExcludeUrlRewrite(true);
+
+        $product->save();
+        
+    	if(isset($custom_options)){
+	    	// Remove existing custom options attached to the product 
+			foreach ($product->getOptions() as $o) {
+			   $o->getValueInstance()->deleteValue($o->getId());
+			   $o->deletePrices($o->getId());
+			   $o->deleteTitles($o->getId());
+			   $o->delete();
+			}
+			if(count($custom_options)) {			
+			   foreach($custom_options as $option) {
+				  try {
+					$opt = Mage::getModel('catalog/product_option');
+					$opt->setProduct($product);
+					$opt->addOption($option);
+					$opt->saveOptions();
+				  }
+				  catch (Exception $e) {}
+			   }
+			}
+		}
+
+        return true;
+    }
+	
+    protected $_categoryCache = array();
+    protected function _addCategories($categories, $store)
+    {
+        $rootId = $store->getRootCategoryId();
+        if (!$rootId) {
+            return array();
+        }
+        $rootPath = Mage_Catalog_Model_Category::TREE_ROOT_ID.'/'.$rootId;
+        if (empty($this->_categoryCache[$store->getGroupId()])) {
+            $collection = Mage::getModel('catalog/category')->getCollection()
+                ->addNameToResult()
+                ->addPathsFilter(array($rootPath, $rootPath."/"));
+            $collection->load();
+
+            foreach ($collection as $cat) {
+                $pathArr = explode('/', $cat->getPath());
+                $namePath = $collection->getItemById($rootId)->getName();
+                for ($i=2, $l=sizeof($pathArr); $i<$l; $i++) {
+                    $name = $collection->getItemById($pathArr[$i])->getName();
+                    $namePath .= (empty($namePath) ? '' : '/').trim($name);
+                }
+                $cat->setNamePath($namePath);
+            }
+            
+            $cache = array();
+            foreach ($collection as $cat) {
+                $cache[strtolower($cat->getNamePath())] = $cat;
+                $cat->unsNamePath();
+            }
+            $this->_categoryCache[$store->getGroupId()] = $cache;
+        }
+        $cache =& $this->_categoryCache[$store->getGroupId()];
+        
+        $catIds = array();
+        foreach (explode(',', $categories) as $categoryPathStr) {
+            $categoryPathStr = preg_replace('#\s*/\s*#', '/', trim($categoryPathStr));
+            if (!empty($cache[$categoryPathStr])) {
+                $catIds[] = $cache[$categoryPathStr]->getId();
+                continue;
+            }
+            $path = $rootPath;
+            $namePath = '';
+            $first = true;
+            foreach (explode('/', $categoryPathStr) as $catName) {
+                $namePath .= (empty($namePath) ? '' : '/').strtolower($catName);
+                if (empty($cache[$namePath]) && $this->getBatchParams('can_add_category')== "1" ) {
+                    $cat = Mage::getModel('catalog/category')
+                        ->setStoreId($store->getId())
+                        ->setPath($path)
+                        ->setName($catName)
+                        ->setIsActive(1)
+                        ->save();
+                    $cache[$namePath] = $cat;
+                }
+                if ( $cache[$namePath] && !$first){
+                	$catId = $cache[$namePath]->getId();
+                	$path .= '/'.$catId;
+                }
+                $first = false;
+            }
+            if ($catId) {
+                $catIds[] = $catId;
+            }
+        }
+        return join(',', $catIds);
+    }
+}

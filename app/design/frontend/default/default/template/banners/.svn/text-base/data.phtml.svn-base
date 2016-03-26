@@ -1,0 +1,56 @@
+<?php
+/**
+ *
+ */
+?>
+<?php 
+$helper = Mage::helper("banners");
+echo '<?xml version="1.0" encoding="utf-8" ?>'?>
+<Banner 
+bannerWidth="<?php echo $helper->bannerWidth()?>"
+bannerHeight="<?php echo $helper->bannerHeight()?>"
+bannerBackgroundColor="<?php echo $helper->bannerBackgroundColor()?>"
+autoPlay="<?php echo $helper->autoPlay()?>"
+imageResizeToFit="<?php echo $helper->imageResizeToFit()?>"
+imageRandomizeOrder="<?php echo $helper->imageRandomizeOrder()?>"
+
+textSize="<?php echo $helper->textSize()?>"
+textColor="<?php echo $helper->textColor()?>"
+textAreaWidth="<?php echo $helper->textAreaWidth()?>"
+textLineSpacing="<?php echo $helper->textLineSpacing()?>"
+textLetterSpacing="<?php echo $helper->textLetterSpacing()?>"
+textMarginLeft="<?php echo $helper->textMarginLeft()?>"
+textMarginBottom="<?php echo $helper->textMarginBottom()?>"
+textBackgroundBlur="<?php echo $helper->textBackgroundBlur()?>"
+textBackgroundColor="<?php echo $helper->textBackgroundColor()?>"
+textBackgroundTransparency="<?php echo $helper->textBackgroundTransparency()?>"
+
+transitionType="<?php echo $helper->transitionType()?>"
+transitionRandomEffects="<?php echo $helper->transitionRandomEffects()?>"
+transitionDelayTimeFixed="<?php echo $helper->transitionDelayTimeFixed()?>"
+transitionDelayTimePerWord="<?php echo $helper->transitionDelayTimePerWord()?>"
+transitionSpeed="<?php echo $helper->transitionSpeed()?>"
+transitionBlur="<?php echo $helper->transitionBlur()?>"
+
+showTimerClock="<?php echo $helper->showTimerClock()?>"
+showNextButton="<?php echo $helper->showNextButton()?>"
+showBackButton="<?php echo $helper->showBackButton()?>"
+showNumberButtons="<?php echo $helper->showNumberButtons()?>"
+showNumberButtonsAlways="<?php echo $helper->showNumberButtonsAlways()?>"
+showNumberButtonsHorizontal="<?php echo $helper->showNumberButtonsHorizontal()?>"
+showNumberButtonsAscending="<?php echo $helper->showNumberButtonsAscending()?>"
+showPlayPauseOnTimer="<?php echo $helper->showPlayPauseOnTimer()?>"
+alignButtonsLeft="<?php echo $helper->alignButtonsLeft()?>"
+alignTextTop="<?php echo $helper->alignTextTop()?>"> 
+<?php foreach ($this->getBanners() as $_banner): ?>
+<?php $bannerImage = Mage::getBaseUrl('media')."Banners/images/".$_banner["bannerimage"];?>
+	<item buttonLabel="" 
+	image="<?php echo $bannerImage?>"
+	link="<?php echo $_banner["link"]?>" 
+	target="<?php echo $_banner["target"]?>" 
+	delay="" 
+	textBlend="<?php echo $_banner["textblend"]?>"> 
+	<![CDATA[<?php echo $_banner["content"]?>]]>
+	</item>	
+<?php endforeach;?>
+</Banner>

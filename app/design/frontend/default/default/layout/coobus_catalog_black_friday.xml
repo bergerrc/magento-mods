@@ -1,0 +1,88 @@
+<?xml version="1.0"?>
+<layout version="0.1.0">
+
+	<default>
+<reference name="head">
+			<action method="addCss">
+				<stylesheet>css/black_friday.css</stylesheet>
+			</action>
+</reference>
+<reference name="product_list">
+<action method="setTemplate"><template>coobus/catalog/product/black_friday_grid.phtml</template>
+</action>
+</reference>
+	</default>
+
+	<coobus_catalog_index_tab>
+		<reference name="head">
+			<action method="addJs">
+				<script>coobus/catalog/tabs.js</script>
+			</action>
+			<action method="addJs">
+				<script>mage/adminhtml/events.js</script>
+			</action>
+		</reference>
+		<reference name="content">
+			<block type="coobus_catalog/product_tabs" name="home_tabs"
+				template="coobus/catalog/product/tabs.phtml">
+				
+				<block type="coobus_catalog/product_list_toolbar" name="product_list_toolbar"
+					template="coobus/catalog/product/list/toolbar.phtml">
+					<block type="page/html_pager" name="product_list_toolbar_pager"
+						template="coobus/catalog/product/list/toolbar/pager.phtml" />
+				</block>
+				
+				<block type="coobus_catalog/product_list_toolbar" name="product_list_toolbar_no_pager"
+					template="coobus/catalog/product/list/toolbar.phtml"/>
+
+				<block type="coobus_catalog/product_all" name="all"
+					template="coobus/catalog/product/black_friday_grid.phtml">
+					<action method="setTitle" translate="value" module="coobus_catalog"><value>All</value></action>
+					<action method="setToolbarBlockName"><name>product_list_toolbar</name></action>
+				</block>
+
+				<block type="coobus_catalog/product_featured" name="featured"
+					template="coobus/catalog/product/black_friday_grid.phtml">
+					<action method="setTitle" translate="value" module="coobus_catalog"><value>Featured</value></action>
+					<action method="setToolbarBlockName"><name>product_list_toolbar</name></action>
+				</block>
+
+				<block type="coobus_catalog/product_new" name="newest"
+					template="coobus/catalog/product/black_friday_grid.phtml">
+					<action method="setTitle" translate="value" module="coobus_catalog"><value>Newest</value></action>
+					<action method="setToolbarBlockName"><name>product_list_toolbar_no_pager</name></action>
+				</block>
+
+				<block type="coobus_catalog/product_mostviewed" name="mostviewed"
+					template="coobus/catalog/product/black_friday_grid.phtml">
+					<action method="setTitle" translate="value" module="coobus_catalog"><value>Most Viewed</value></action>
+					<action method="setToolbarBlockName"><name>product_list_toolbar_no_pager</name></action>
+				</block>
+			</block>
+		</reference>
+	</coobus_catalog_index_tab>
+
+	<coobus_catalog_index_featured>
+		<reference name="root">
+			<!--
+				<action
+				method="setTemplate"><template>page/2columns-left.phtml</template></action>
+			-->
+		</reference>
+
+		<reference name="content">
+			<block type="coobus_catalog/product_tabs" name="home.product.tabs"
+				template="coobus/catalog/product/tabs.phtml" after="cms_page">
+				<block type="coobus_catalog/product_featured" name="home.product.featured"
+					template="coobus/catalog/product/grid.phtml">
+					<block type="coobus_catalog/product_list_toolbar" name="product_list_toolbar"
+						template="coobus_catalog/product/list/toolbar.phtml">
+						<block type="page/html_pager" name="product_list_toolbar_pager" />
+					</block>
+				</block>
+			</block>
+		</reference>
+
+	</coobus_catalog_index_featured>
+
+</layout>

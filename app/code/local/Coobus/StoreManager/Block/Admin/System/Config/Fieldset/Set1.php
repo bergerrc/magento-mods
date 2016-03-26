@@ -1,0 +1,4 @@
+<?php
+class Coobus_StoreManager_Block_Admin_System_Config_Fieldset_Set1 extends Coobus_StoreManager_Block_Admin_System_Config_Fieldset_Conditional{
+	
+}

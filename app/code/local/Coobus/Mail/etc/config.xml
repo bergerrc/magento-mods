@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<config>
+	<modules>
+        <Coobus_Mail>
+            <version>0.1.0</version>
+        </Coobus_Mail>
+    </modules>
+	<global>
+		<models>
+        	<core>
+        		<rewrite>
+        			<!--email_template>Coobus_Mail_Model_Email_Template</email_template-->
+        		</rewrite>
+        	</core>
+        	<admin>
+	        	<rewrite>
+					<user>Coobus_Mail_Model_Admin_User</user>
+	        	</rewrite>
+        	</admin>
+		</models>
+		<helpers>
+             <coobus_mail>
+                <class>Coobus_Mail_Helper</class>
+             </coobus_mail>
+        </helpers>
+	</global>
+	<adminhtml>
+        <translate>
+            <modules>
+                <coobus_catalog>
+                    <files>
+                        <default>Coobus_Mail.csv</default>
+                    </files>
+                </coobus_catalog>
+            </modules>
+        </translate>
+	</adminhtml>
+	<default>	
+		<system>
+			<smtp>
+				<host>smtp.gmail.com</host>
+				<ssl>1</ssl>
+				<auth>LOGIN</auth>
+				<port>465</port>
+			</smtp>
+		</system>
+	</default>	
+    <crontab>
+        <jobs>
+            <newsletter_send_all>
+                <schedule><cron_expr>* * * * *</cron_expr></schedule>
+                <run><model>newsletter/observer::scheduledSend</model></run>
+            </newsletter_send_all>
+        </jobs>
+    </crontab>
+</config>

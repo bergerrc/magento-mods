@@ -1,0 +1,34 @@
+<?xml version="1.0"?>
+<layout>
+    <adminhtml_catalog_product_edit>
+        <reference name="product_tabs">
+            <action method="disableGroups">
+            	<list>
+            		<item2>Compra recorrente (inativo)</item2>
+            		<item3>Customizar visual (inativo)</item3>
+            		<item4>Opções para presente (inativo)</item4>
+            	</list>
+            </action>
+        </reference>
+    </adminhtml_catalog_product_edit>
+    
+    <adminhtml_catalog_product_new>
+        <reference name="product_tabs">
+            <action method="disableGroups">
+            	<list>
+            		<item1>Meta-dados</item1>
+            		<item2>Compra recorrente (inativo)</item2>
+            		<item3>Customizar visual (inativo)</item3>
+            		<item4>Opções para presente (inativo)</item4>
+            	</list>
+            </action>
+            <action method="removeTab"><string>related</string></action>
+            <action method="removeTab"><string>upsell</string></action>
+            <action method="removeTab"><string>crosssell</string></action>
+            <action method="removeTab"><string>productalert</string></action>
+            <action method="removeTab"><string>reviews</string></action>
+            <action method="removeTab"><string>tags</string></action>
+            <action method="removeTab"><string>customer_tags</string></action>
+        </reference>
+    </adminhtml_catalog_product_new>
+</layout>

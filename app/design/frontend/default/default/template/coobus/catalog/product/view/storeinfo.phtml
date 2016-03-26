@@ -1,0 +1,31 @@
+<?php
+if ( $this->hasStoreInfo() ):?>
+<div class="block">
+<div class="block-title"><strong>Loja</strong></div>
+<div class="block-content">
+<?php if ( $this->hasLogo() ) :?>
+<img class="storelogo" title="<?php echo $this->getStoreName() ?>" src="<?php echo $this->getLogoUrl() ?>" alt="<?php echo $this->getStoreName() ?>" /><br /><br />
+<?php endif ?>   
+<table class="data-table">
+<tbody>
+<tr>
+<th>Contato</th>
+<td><?php echo $this->getContactName() ?><br /></td>
+</tr>
+<tr>
+<th>E-mail</th>
+<td><?php echo $this->getContactEmail() ?><br /></td>
+</tr>
+<tr>
+<th>Telefone</th>
+<td><?php echo $this->getPhone() ?><br /></td>
+</tr>
+<tr class="last">
+<th>Endere&ccedil;o</th>
+<td><?php echo $this->getAddress() ?><br /></td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<?php endif;?>

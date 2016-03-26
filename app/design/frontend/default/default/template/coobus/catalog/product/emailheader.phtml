@@ -1,0 +1,206 @@
+<style>
+/* Reset ================================================================================= */
+* { margin:0; padding:0; }
+
+body          { background:#f2f2f2 url(../images/bkg_body.gif) 0 0 repeat; font:11px/1.55 arial, helvetica, sans-serif; color:#444; text-align:center; }
+
+img           { border:0; vertical-align:top; }
+
+a             { color:#4f8100; text-decoration:none; }
+a:hover       { text-decoration:underline; }
+:focus        { outline:0; }
+
+/* Headings */
+h1          { font-size:2em; font-weight:normal; line-height:1.15; }
+h2          { font-size:1.5em; line-height:1.25; margin-bottom:.45em; }
+h3          { font-size:1.35em; line-height:1.25; margin-bottom:.45em; }
+h4          { font-size:1.05em; line-height:1.35; margin-bottom:.45em; }
+h5          { font-size:1.05em; line-height:1.35; margin-bottom:.45em; }
+h6          { font-size:1em; line-height:1.35; margin-bottom:1em; }
+
+/* Forms */
+form          { display:inline; }
+fieldset      { border:0; }
+legend        { display:none; }
+
+/* Table */
+table         { border:0; /*border-collapse:collapse;*/ border-spacing:0; empty-cells:show; font-size:100%; }
+caption,th,td { vertical-align:top; text-align:left; font-weight:normal; }
+
+/* Content */
+p             { margin:0 0 1em; }
+strong        { font-weight:bold; }
+address       { font-style:normal; line-height:1.35; }
+cite          { font-style:normal; }
+q,
+blockquote    { quotes:none; }
+q:before,
+q:after       { content:''; }
+small         { font-size:1em; }
+big           { font-size:1.15em; }
+/*sup           { font-size:1em; vertical-align:top; }*/
+
+/* Lists */
+ul,ol         { list-style:none; }
+
+/* Tools */
+.hidden       { display:block !important; border:0 !important; margin:0 !important; padding:0 !important; font-size:0 !important; line-height:0 !important; width:0 !important; height:0 !important; overflow:hidden !important; }
+.nobr         { white-space:nowrap !important; }
+.wrap         { white-space:normal !important; }
+.a-left       { text-align:left !important; }
+.a-center     { text-align:center !important; }
+.a-right      { text-align:right !important; }
+.v-top        { vertical-align:top; }
+.v-middle     { vertical-align:middle; }
+.f-left,
+.left         { float:left !important; }
+.f-right,
+.right        { float:right !important; }
+.f-none       { float:none !important; }
+.f-fix        { float:left; width:100%; }
+.no-display   { display:none; }
+.no-margin    { margin:0 !important; }
+.no-padding   { padding:0 !important; }
+.no-bg        { background:none !important; }
+/* ======================================================================================= */
+
+
+/* Layout ================================================================================ */
+.wrapper {}
+.page { width:960px; margin:15px auto 0; text-align:left; }
+.page-print { background:#fff; padding:25px 30px; text-align:left; }
+.page-empty { background:#fff; padding:20px; text-align:left; }
+.page-popup { background:#fff; padding:25px 30px; text-align:left; }
+.main-container {}
+.main { background:#fff; border:1px solid #bbb; border-top:0; border-bottom-color:#666; padding:16px 16px 50px; min-height:350px; }
+
+/* View Type: Grid */
+.product-grid { margin-left:auto;margin-right:auto;}
+.products-grid { position:relative; }
+.products-grid.last { border-bottom:0; }
+.products-grid li.item { float:left; width:171px; padding:0 0 90px; }
+.products-grid .product-image { display:block; width:170px; height:170px; border:1px solid #ddd; border-width:1px 1px 1px 0; margin:0 0 10px; }
+.products-grid.first .product-image { border-top:0; }
+.products-grid li.last .product-image { border-right:0; }
+.products-grid .product-name { font-size:12px; margin:0 0 6px; }
+.products-grid .product-name a { color:#444; text-decoration:underline; }
+.products-grid .product-name a:hover { text-decoration:none; }
+.products-grid .price-box { margin:5px 0; }
+.products-grid .availability { line-height:21px; }
+.products-grid .actions { position:absolute; bottom:20px; }
+.col2-left-layout .products-grid,
+.col2-right-layout .products-grid { width:684px; margin:0 auto; }
+.col1-layout .products-grid,
+.page-empty .products-grid { width:500px; margin:0 auto; }
+
+/* View Type: List */
+.products-list li.item { border-bottom:1px solid #d9ddd3; padding:12px 10px; }
+.products-list li.item.last { border-bottom:0; }
+.products-list .product-shop { margin-left:185px; }
+.products-list .product-image { float:left; width:170px; height:170px; margin:0 0 10px; }
+.products-list .product-name { font-size:12px; margin:0 0 6px; }
+.products-list .product-name a { color:#444; text-decoration:underline; }
+.products-list .product-name a:hover { text-decoration:none; }
+.products-list .price-box { float:left; margin:4px 13px 0 0; }
+.products-list .availability { float:left; margin:3px 0 0; }
+.products-list .desc { clear:both; padding:6px 0 0; margin:0 0 13px; line-height:1.35; }
+.products-list .add-to-links { clear:both; }
+
+/* Mini Products Grid */
+.mini-products-grid { width:100%; }
+.mini-products-grid td { width:20%; padding:0 8px 8px 0; }
+.mini-products-grid .product-image { display:block; border:1px solid #cacaca; margin:0 0 10px; }
+.mini-products-grid .product-name { width:115px; margin:0 0 6px; overflow:hidden; }
+.mini-products-grid .product-name a { color:#444; text-decoration:underline; }
+.mini-products-grid .product-name a:hover { text-decoration:none; }
+.mini-products-grid td.empty {}
+.mini-products-grid td.last { padding-right:0; }
+.mini-products-grid .ratings .rating-box { float:none; display:block; margin:0 0 3px; }
+
+/* Content Styles ================================================================= */
+.product-name { margin:0; font-size:1em; font-weight:normal; line-height:1.55; }
+
+/********** Product Prices */
+.price { white-space:nowrap !important; }
+
+.price-box { margin:5px 0 10px; }
+.price-box .price { font-size:13px; font-weight:bold; color:#396f00; text-decoration:line-through;}
+
+/* Regular price */
+.regular-price { color:#396f00; }
+.regular-price .price { font-size:13px; font-weight:bold; color:#396f00; text-decoration:line-through; }
+
+/* Old price */
+.old-price { margin:0; }
+.old-price .price-label { font-size:11 px; white-space:nowrap; }
+.old-price .price { font-weight:bold; font-size:13px; color:#396f00; text-decoration:line-through; }
+
+/* Special price */
+.special-price { margin:0; }
+.special-price .price-label { font-size:11px; text-transform:uppercase; white-space:nowrap; color:#000;  }
+.special-price .price { font-size:13px; font-weight:bold; color:#396f00; text-decoration:line-through;}
+
+/* Black Friday */
+.black-friday-price { margin:0; }
+.black-friday-price .price-label { font-size:10px; font-weight:bold; text-transform:uppercase; white-space:nowrap; color:#000; }
+.black-friday-price .price { font-size:13px; font-weight:bold; color:#f00; text-decoration:none;}
+
+/* Minimal price (as low as) */
+.minimal-price { margin:0; }
+.minimal-price .price-label { font-size:12px; font-weight:bold; white-space:nowrap; }
+
+.minimal-price-link { display:block; font-size:12px; text-decoration:underline; color:#444; }
+.minimal-price-link .label {color:#444;}
+.minimal-price-link .price { font-weight:normal; color:#444; }
+
+/* Price range */
+.price-from { margin:0; }
+.price-from .price-label { font-size:11px; white-space:nowrap; }
+.price-from .price {color:#396f00; text-decoration:line-through;}
+
+.price-to { margin:0; display: none;}
+.price-to .price-label { font-size:11px;  white-space:nowrap; }
+
+/* Price notice next to the options */
+.price-notice { padding-left:7px; }
+.price-notice .price { font-weight:bold; }
+
+/* Price as configured */
+.price-as-configured { margin:0; }
+.price-as-configured .price-label { font-weight:bold; white-space:nowrap; text-transform:uppercase; }
+
+.price-box-bundle { padding:0 0 10px 0; }
+.price-box-bundle .price-box { margin:0 !important; padding:0 !important; }
+.price-box-bundle .price { color:#222; }
+
+/* Tier Prices */
+.tier-prices { margin:10px 0; padding:10px; background:#f4f9ea; border:1px solid #ddd; }
+.tier-prices .benefit { font-style:italic; font-weight:bold; }
+.tier-prices .price { font-weight:bold;; }
+
+.tier-prices-grouped li .price { font-weight:bold; }
+
+/* Clears ================================================================================ */
+.products-grid:after,
+.products-list li.item:after { display:block; content:"."; clear:both; font-size:0; line-height:0; height:0; overflow:hidden; }
+
+/* Other ================================================================================ */
+.products-list li.item { border-bottom:1px solid #d9ddd3; padding:12px 10px; }
+.products-list li.item.last { border-bottom:0; }
+.products-list .product-shop { margin-left:185px; }
+.products-list .product-image { float:left; width:170px; height:170px; margin:0 0 10px; }
+.products-list .product-name { font-size:12px; margin:0 0 6px; }
+.products-list .product-name a { color:#444; text-decoration:underline; }
+.products-list .product-name a:hover { text-decoration:none; }
+.products-list .desc { clear:both; padding:6px 0 0; margin:0 0 13px; line-height:1.35; }
+.products-grid li.item { float:left; width:136px; padding:0px; text-align: center; margin-bottom: 0px; }
+.products-grid .product-image {display:block; width:100%; width:135px; height:101px; border:1px solid #ddd; border-width:1px 1px 1px 0; margin:0 0 3px 0;}
+.product-view .product-img-box { float:none; width:302px; }
+.products-grid .product-name { font-size:12px; overflow:hidden; white-space: nowrap; text-overflow: ellipsis;}
+.products-grid .product-name a { color:#7C7C7C; text-decoration:none; }
+.products-grid .attribute.manufacturer { line-height: 10px; font-size:11px; font-weight: normal; margin:0 6px 6px; overflow:hidden; white-space: nowrap; text-overflow: ellipsis;}
+.products-grid .attribute.manufacturer a { color:#7c7c7c; text-decoration:none; }
+.products-grid .item .actions { width:135px; float:left; vertical-align: bottom; margin-top: 15px; position: relative;}
+.products-grid .attribute { line-height: 10px; font-size:10px; font-weight: normal; margin:0 6px 6px; overflow:hidden; white-space: nowrap; text-overflow: ellipsis;}
+.products-grid .attribute a { color:#ccc; text-decoration:none; }
+</style>

@@ -1,0 +1,110 @@
+<?xml version="1.0"?>
+<layout>
+    <sales_order_grid_update_handle>
+        <reference name="sales_order.grid">
+            <action method="addColumnAfter">
+                <columnId>payment_date</columnId>
+                <arguments>
+                    <header>Payment Date</header>
+                    <index>payment_date</index>
+                    <filter_index>payment_date</filter_index>
+                    <type>datetime</type>
+		      <width>100px</width>
+                </arguments>
+                <after>created_at</after>
+            </action>
+            <action method="addColumnAfter">
+                <columnId>shipping_amount</columnId>
+                <arguments>
+                    <header>Shipping amount</header>
+                    <index>shipping_amount</index>
+                    <filter_index>shipping_amount</filter_index>
+                    <type>currency</type>
+			<currency>base_currency_code</currency>
+                </arguments>
+                <after>base_grand_total</after>
+            </action>
+<!--            <action method="addColumnAfter">
+                <columnId>main_table.status</columnId>
+                <arguments>
+                    <header>Status</header>
+                    <index>status</index>
+                    <type>options</type>
+			<width>70px</width>
+			<options helper="sales/order_config/getStatuses"/>                
+		  </arguments>
+		  <after>shipping_amount</after>
+            </action>
+-->
+        </reference>
+    </sales_order_grid_update_handle>
+    <adminhtml_sales_order_grid>
+        <!-- apply layout handle defined above -->
+        <update handle="sales_order_grid_update_handle" />
+    </adminhtml_sales_order_grid>
+    <adminhtml_sales_order_index>
+        <!-- apply layout handle defined above -->
+        <update handle="sales_order_grid_update_handle" />
+    </adminhtml_sales_order_index>
+
+    <adminhtml_sales_order_revenue>
+        <reference name="root">
+            <action method="setHeaderTitle"><title>Testando</title></action>
+        </reference>
+    </adminhtml_sales_order_revenue>
+
+<!-- 
+	<adminhtml_sales_order_create_index>
+		<reference name="select">
+			<action method="setTemplate"><string>storemanager/sales/order/create/store/select.phtml</string></action>
+		</reference>
+	</adminhtml_sales_order_create_index>
+	<adminhtml_report_sales_sales>
+		<reference name="store.switcher">
+			<action method="setTemplate"><string>storemanager/report/store/switcher/enhanced.phtml</string></action>
+		</reference>
+	</adminhtml_report_sales_sales>
+	<adminhtml_report_sales_tax>
+		<reference name="store.switcher">
+			<action method="setTemplate"><string>storemanager/report/store/switcher/enhanced.phtml</string></action>
+		</reference>
+	</adminhtml_report_sales_tax>
+	<adminhtml_report_sales_shipping>
+		<reference name="store.switcher">
+			<action method="setTemplate"><string>storemanager/report/store/switcher/enhanced.phtml</string></action>
+		</reference>
+	</adminhtml_report_sales_shipping>
+	<adminhtml_report_sales_invoiced>
+		<reference name="store.switcher">
+			<action method="setTemplate"><string>storemanager/report/store/switcher/enhanced.phtml</string></action>
+		</reference>
+	</adminhtml_report_sales_invoiced>
+	<adminhtml_report_sales_refunded>
+		<reference name="store.switcher">
+			<action method="setTemplate"><string>storemanager/report/store/switcher/enhanced.phtml</string></action>
+		</reference>
+	</adminhtml_report_sales_refunded>
+	<adminhtml_report_sales_coupons>
+		<reference name="store.switcher">
+			<action method="setTemplate"><string>storemanager/report/store/switcher/enhanced.phtml</string></action>
+		</reference>
+	</adminhtml_report_sales_coupons>
+	<adminhtml_report_sales_bestsellers>
+		<reference name="store.switcher">
+			<action method="setTemplate"><string>storemanager/report/store/switcher/enhanced.phtml</string></action>
+		</reference>
+	</adminhtml_report_sales_bestsellers>
+
+    <adminhtml_catalog_category_tree>
+        	<reference name="store_switcher">
+	        	<action method="setTemplate"><string>storemanager/store/switcher/enhanced.phtml</string></action>
+	        	<action method="hasDefaultOption"><params>0</params></action>
+        	</reference>
+    </adminhtml_catalog_category_tree>
+    <adminhtml_catalog_category_edit>
+        	<reference name="category.edit">
+	        	<action method="setTemplate"><string>storemanager/catalog/category/edit.phtml</string></action>
+        	</reference>
+    </adminhtml_catalog_category_edit>
+ -->
+</layout>

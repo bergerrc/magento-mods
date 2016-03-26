@@ -1,0 +1,9 @@
+<?xml version="1.0"?>
+<config>
+    <modules>
+        <Beeapps_Tax>
+            <active>false</active>
+            <codePool>local</codePool>
+        </Beeapps_Tax>
+    </modules>
+</config>

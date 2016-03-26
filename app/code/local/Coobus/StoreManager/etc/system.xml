@@ -1,0 +1,705 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * Coobus Consultoria de Processos
+ *
+ * NOTICE OF LICENSE
+ *
+ * This source file is subject to the Open Software License (OSL).
+ * It is also available through the world-wide-web at this URL:
+ * http://opensource.org/licenses/osl-3.0.php
+ *
+ * @category   ACL
+ * @package    Coobus_StoreManager
+ * @copyright  Copyright (c) 2011 Coobus (http://www.coobus.com.br)
+ * @author     Ricardo Custódio <ricardo@coobus.com.br>
+ * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
+ */
+-->
+<config>
+	<tabs>
+        <storemanager_module>
+            <label>Loja</label>
+            <sort_order>101</sort_order>
+        </storemanager_module>
+	</tabs>
+    <sections>
+    	<general>
+   			<groups>
+  			    <store_information>
+  			    	<fields>
+                        <owner translate="label" module="coobus_storemanager">
+                            <label>Store Manager</label>
+                            <frontend_type>select</frontend_type>
+                            <source_model>Coobus_StoreManager_Model_Source_Users</source_model>
+                            <sort_order>1o</sort_order>
+                            <show_in_default>0</show_in_default>
+                            <show_in_website>0</show_in_website>
+                            <show_in_store>1</show_in_store>
+                            <can_be_empty>1</can_be_empty>
+                        </owner>
+  			    	</fields>
+				</store_information>
+   			</groups>
+    	</general>
+    	<store_general translate="label" module="coobus_storemanager">
+    		<label>Fullfillment</label>
+            <tab>storemanager_module</tab>
+            <frontend_type>text</frontend_type>
+            <sort_order>10</sort_order>
+            <show_in_default>0</show_in_default>
+            <show_in_website>0</show_in_website>
+            <show_in_store>1</show_in_store>
+            <groups>
+                <basic_info translate="label">
+                    <label>Basic Info</label>
+                    <frontend_type>text</frontend_type>
+                    <sort_order>1</sort_order>
+                    <show_in_default>0</show_in_default>
+                    <show_in_website>0</show_in_website>
+                    <show_in_store>1</show_in_store>
+                    <fields>
+                        <status translate="label">
+                            <label>Enabled</label>
+                            <sort_order>1</sort_order>
+                            <show_in_default>0</show_in_default>
+                            <show_in_website>0</show_in_website>
+                            <show_in_store>1</show_in_store>
+                            <frontend_type>radios</frontend_type>
+                            <source_model>adminhtml/system_config_source_yesno</source_model>
+                            <backend_model>coobus_storemanager/admin_system_config_backend_storeactivation</backend_model>
+                            <depends_valid>
+                            	<payment.pagamentodigital_standard.emailID/>
+                            	<payment.pagamentodigital_standard.token/>
+                            	<shipping_origin_postcode/>
+                            </depends_valid>
+                        </status>
+                        <name translate="label">
+                            <label>Store Name</label>
+                            <frontend_type>text</frontend_type>
+                            <sort_order>10</sort_order>
+                            <show_in_default>0</show_in_default>
+                            <show_in_website>0</show_in_website>
+                            <show_in_store>1</show_in_store>
+                            <config_path>general/store_information/name</config_path>
+                            <backend_model>coobus_storemanager/admin_system_config_backend_storename</backend_model>
+                            <comment>Exemplo: 'Loja do Paulo'</comment>
+                        </name>
+                        <address translate="label">
+                            <label>Address</label>
+                            <frontend_type>textarea</frontend_type>
+                            <sort_order>20</sort_order>
+                            <show_in_default>0</show_in_default>
+                            <show_in_website>0</show_in_website>
+                            <show_in_store>1</show_in_store>
+                            <config_path>general/store_information/address</config_path>
+                            <backend_model>coobus_storemanager/admin_system_config_backend_address</backend_model>
+                            <comment><![CDATA[Se possuir loja física informe o endereço completo, caso contrário somente a cidade e o estado.]]></comment>
+                        </address>
+                        <phone translate="label">
+                            <label>Store Contact Telephone</label>
+                            <frontend_type>text</frontend_type>
+                            <sort_order>30</sort_order>
+                            <show_in_default>0</show_in_default>
+                            <show_in_website>0</show_in_website>
+                            <show_in_store>1</show_in_store>
+                            <validate>validate-phone</validate>
+                            <config_path>general/store_information/phone</config_path>
+                            <comment><![CDATA[Preencher SOMENTE se preferir atender seus clientes desta forma, já que pela internet existem outros meios, como e-mail, skype e pelo próprio mecanismo da loja.]]></comment>
+                        </phone>
+                        <code translate="label">
+                            <label>Store Code</label>
+                            <frontend_type>text</frontend_type>
+                            <sort_order>40</sort_order>
+                            <show_in_default>0</show_in_default>
+                            <show_in_website>0</show_in_website>
+                            <show_in_store>1</show_in_store>
+                            <validate>validate-xml-identifier validate-one-required</validate>
+                            <backend_model>coobus_storemanager/admin_system_config_backend_storecode</backend_model>
+                            <comment><![CDATA[Preencher somente o trecho destacado abaixo: <br/>
+                                	http://<span id="host"></span>/<strong>minhaloja<strong>
+                                	<script type="text/javascript">
+                                		$('host').innerHTML = location.host;
+                                	</script>                                	
+                                	]]></comment>
+                        </code>
+                    </fields>
+                </basic_info>
+                <ident_sales translate="label">
+                    <label>Sales Representative</label>
+                    <frontend_type>text</frontend_type>
+                    <sort_order>2</sort_order>
+                    <show_in_default>0</show_in_default>
+                    <show_in_website>1</show_in_website>
+                    <show_in_store>1</show_in_store>
+                    <fields>
+                        <email translate="label">
+                            <label>Sender Email</label>
+                            <frontend_type>text</frontend_type>
+                            <backend_model>coobus_storemanager/admin_system_config_backend_email</backend_model>
+                            <validate>validate-email</validate>
+                            <sort_order>2</sort_order>
+                            <show_in_default>0</show_in_default>
+                            <show_in_website>0</show_in_website>
+                            <show_in_store>1</show_in_store>
+                            <validate>validate-one-required</validate>
+                        </email>
+                        <name translate="label">
+                            <label>Sender Name</label>
+                            <frontend_type>text</frontend_type>
+                            <backend_model>adminhtml/system_config_backend_email_sender</backend_model>
+                            <validate>validate-emailSender</validate>
+                            <sort_order>1</sort_order>
+                            <show_in_default>0</show_in_default>
+                            <show_in_website>0</show_in_website>
+                            <show_in_store>1</show_in_store>
+                            <validate>validate-one-required</validate>
+                            <config_path>trans_email/ident_sales/name</config_path>
+                        </name>
+                    </fields>
+                </ident_sales>
+            </groups>
+		</store_general>
+        <store_design translate="label" module="coobus_storemanager">
+        	<label>Design</label>
+            <tab>storemanager_module</tab>
+            <frontend_type>text</frontend_type>
+            <sort_order>20</sort_order>
+            <show_in_default>0</show_in_default>
+            <show_in_website>0</show_in_website>
+            <show_in_store>1</show_in_store>
+            <groups>
+                <identity translate="label">
+                    <label>Identity</label>
+                    <frontend_type>text</frontend_type>
+                    <sort_order>1</sort_order>
+                    <show_in_default>0</show_in_default>
+                    <show_in_website>0</show_in_website>
+                    <show_in_store>1</show_in_store>
+                    <fields>
+                        <logo translate="label">
+                            <label>Logo</label>
+                            <comment><![CDATA[Tipo de imagen permitida: PNG, GIF ou JPEG.<br/>
+                            		Tamanho: 200 px. (largura) x 50 px. (altura).
+                            ]]></comment>
+                            <frontend_type>image</frontend_type>
+                            <backend_model>coobus_storemanager/admin_system_config_backend_logo</backend_model>
+                            <upload_dir config="system/filesystem/media" scope_info="1">logo</upload_dir>
+                            <base_url type="media" scope_info="1">logo</base_url>
+                            <sort_order>5</sort_order>
+                            <show_in_default>0</show_in_default>
+                            <show_in_website>0</show_in_website>
+                            <show_in_store>1</show_in_store>
+                        </logo>
+                        <banner translate="label">
+                            <label>Banner</label>
+                            <comment><![CDATA[Tipo de imagen permitida: PNG, GIF ou JPEG.<br/>
+                            		Tamanho: 686 px. (largura) x 216 px. (altura).
+                            ]]></comment>
+                            <frontend_type>image</frontend_type>
+                            <backend_model>coobus_storemanager/admin_system_config_backend_banner</backend_model>
+                            <upload_dir config="system/filesystem/media" scope_info="1">Banners/images</upload_dir>
+                            <base_url type="media" scope_info="1">Banners/images</base_url>
+                            <sort_order>10</sort_order>
+                            <show_in_default>0</show_in_default>
+                            <show_in_website>0</show_in_website>
+                            <show_in_store>1</show_in_store>
+                        </banner>
+                        <banner_content translate="label">
+                            <label>Banner Content</label>
+                            <comment><![CDATA[Texto do rodapé do banner]]></comment>
+                            <frontend_type>text</frontend_type>
+                            <backend_model>coobus_storemanager/admin_system_config_backend_Bannercontent</backend_model>
+                            <sort_order>15</sort_order>
+                            <show_in_default>0</show_in_default>
+                            <show_in_website>0</show_in_website>
+                            <show_in_store>1</show_in_store>
+                        </banner_content>
+                        <default_description translate="label">
+                            <label>Description</label>
+                            <frontend_type>textarea</frontend_type>
+                            <backend_model>coobus_storemanager/admin_system_config_backend_htmlescape</backend_model>
+                            <escape_allowed>strong, b, a, br, span, div</escape_allowed>
+                            <sort_order>20</sort_order>
+                            <show_in_default>0</show_in_default>
+                            <show_in_website>0</show_in_website>
+                            <show_in_store>1</show_in_store>
+                            <config_path>design/head/default_description</config_path>
+                            <comment>Exemplo: Trabalhamos com produtos do tipo A, B e C ...</comment>
+                        </default_description>
+                        <default_keywords translate="label">
+                            <label>Keywords</label>
+                            <frontend_type>textarea</frontend_type>
+                            <sort_order>30</sort_order>
+                            <show_in_default>0</show_in_default>
+                            <show_in_website>0</show_in_website>
+                            <show_in_store>1</show_in_store>
+                            <config_path>design/head/default_keywords</config_path>
+                            <comment>Palavras separadas por vírgula, que auxiliarão a localização do conteúdo da sua loja.</comment>
+                        </default_keywords>
+                	</fields>
+            	</identity>
+            	<catalog translate="label">
+                    <label>Catalog</label>
+                    <frontend_type>text</frontend_type>
+                    <sort_order>2</sort_order>
+                    <show_in_default>0</show_in_default>
+                    <show_in_website>0</show_in_website>
+                    <show_in_store>1</show_in_store>
+            		<fields>
+            		    <image translate="label comment">
+                            <label>Watermark</label>
+                            <frontend_type>image</frontend_type>
+                            <backend_model>adminhtml/system_config_backend_image</backend_model>
+                            <upload_dir config="system/filesystem/media" scope_info="1">catalog/product/watermark</upload_dir>
+                            <base_url type="media" scope_info="1">catalog/product/watermark</base_url>
+                            <sort_order>200</sort_order>
+                            <show_in_default>0</show_in_default>
+                            <show_in_website>0</show_in_website>
+                            <show_in_store>1</show_in_store>
+                            <config_path>design/watermark/image</config_path>
+                            <comment><![CDATA[Tipo de imagen permitida: PNG, GIF ou JPEG.<br/>
+                            		Tamanho: 200 px. (largura) x 300 px. (altura).
+                            ]]></comment>
+                        </image>
+            		</fields>
+            	</catalog>
+        	</groups>
+       	</store_design>
+        <store_cataloginventory translate="label" module="coobus_storemanager">
+        	<label>Inventory</label>
+            <tab>storemanager_module</tab>
+            <frontend_type>text</frontend_type>
+            <sort_order>30</sort_order>
+            <show_in_default>0</show_in_default>
+            <show_in_website>0</show_in_website>
+            <show_in_store>1</show_in_store>
+            <groups>
+                <item_options translate="label">
+                    <label>Product Stock Options</label>
+                    <frontend_type>text</frontend_type>
+                    <sort_order>1</sort_order>
+                    <show_in_default>0</show_in_default>
+                    <show_in_website>0</show_in_website>
+                    <show_in_store>1</show_in_store>
+                    <fields>
+                        <backorders translate="label">
+                            <label>Backorders</label>
+                            <frontend_type>select</frontend_type>
+                            <source_model>coobus_storemanager/cataloginventory_source_backorders</source_model>
+                            <sort_order>3</sort_order>
+                            <show_in_default>0</show_in_default>
+                            <show_in_website>0</show_in_website>
+                            <show_in_store>1</show_in_store>
+                            <config_path>cataloginventory/item_options/backorders</config_path>
+                            <comment><![CDATA[Por padrão, para permitir a encomenda dos produtos, selecione 'Quando estoque abaixo de 0 e avisar cliente'.
+                            Esta opção também pode ser selecionada em cada produto do catálogo.
+                            ]]></comment>
+                        </backorders>
+                    </fields>
+				</item_options>
+			</groups>
+		</store_cataloginventory>
+        <store_payment translate="label" module="coobus_storemanager">
+        	<label>Payment</label>
+            <tab>storemanager_module</tab>
+            <frontend_type>text</frontend_type>
+            <sort_order>40</sort_order>
+            <show_in_default>0</show_in_default>
+            <show_in_website>1</show_in_website>
+            <show_in_store>1</show_in_store>
+            <groups>
+		<revenueshare translate="label, comment">
+			<label>Revenue Share</label>
+			<frontend_type>text</frontend_type>
+			<sort_order>1</sort_order>
+			<show_in_default>1</show_in_default>
+			<show_in_website>1</show_in_website>
+			<show_in_store>1</show_in_store>
+			<comment>Clique na imagem ao lado para criar sua conta no PagSeguro afim de receber a sua parte das vendas<![CDATA[
+                    <div><a href="https://pagseguro.uol.com.br/?ind=25520601" target="_blank"><img align="right" src="https://p.simg.uol.com.br/out/pagseguro/i/banners/indicacao/200x200_pagseguroUOL.gif" alt = "PagSeguro" border="0"></a></div>]]></comment>	
+			<fields>
+				<active translate="label">
+					<label>Enabled</label>
+					<frontend_type>select</frontend_type>
+					<source_model>adminhtml/system_config_source_yesno</source_model>
+					<sort_order>1</sort_order>
+					<show_in_default>0</show_in_default>
+					<show_in_website>1</show_in_website>
+					<show_in_store>0</show_in_store>
+				</active>
+				<tax translate="label">
+					<label>Commission Tax</label>
+					<frontend_type>text</frontend_type>
+					<sort_order>1</sort_order>
+					<show_in_default>1</show_in_default>
+					<show_in_website>1</show_in_website>
+					<show_in_store>0</show_in_store>
+					<validate>validate-percents</validate>
+					<depends><active>1</active></depends>
+					<comment>Valor em percentual a ser calculado sobre o valor do pedido, sem considerar o frete.</comment>
+				</tax>
+				<taxnote translate="label">
+					<label>Commission Tax</label>
+					<frontend_type>label</frontend_type>
+					<sort_order>2</sort_order>
+					<show_in_default>0</show_in_default>
+					<show_in_website>0</show_in_website>
+					<show_in_store>1</show_in_store>
+					<depends><active>1</active></depends>
+					<config_path>store_payment/revenueshare/tax</config_path>
+					<comment>Valor em percentual a ser calculado sobre o valor do pedido, sem considerar o frete.</comment>
+				</taxnote>
+				<email translate="label, comment">
+					<label>Sales Transfering E-mail</label>
+					<frontend_type>text</frontend_type>
+					<sort_order>3</sort_order>
+					<show_in_default>0</show_in_default>
+					<show_in_website>0</show_in_website>
+					<show_in_store>1</show_in_store>
+					<validate>validate-email</validate>
+					<depends><active>1</active></depends>
+					<comment>Please inform your e-mail registered in PagSeguro as consumer</comment>
+				</email>
+			</fields>
+		</revenueshare>
+                <pagamentodigital translate="label">
+                    <label>Pagamento Digital</label>
+                    <frontend_type>text</frontend_type>
+                    <frontend_model>coobus_storemanager/admin_system_config_fieldset_set1</frontend_model>
+                    <depends><payment.pagamentodigital_standard.active>1</payment.pagamentodigital_standard.active></depends>
+                    <sort_order>1</sort_order>
+                    <show_in_default>0</show_in_default>
+                    <show_in_website>0</show_in_website>
+                    <show_in_store>0</show_in_store>
+                    <comment><![CDATA[
+                    <div><img align="right" src="http://www.pagamentodigital.com.br/site/banner/campanhas/_24x/05/PD_Institucional_125x125.gif" alt = "Pagamento Digital" border="0"></div>]]></comment>
+                    <fields>
+						<emailID translate="label">
+							<label>Conta (e-mail) do Pagamento Digital</label>
+							<frontend_type>text</frontend_type>
+							<sort_order>4</sort_order>
+							<show_in_default>0</show_in_default>
+							<show_in_website>0</show_in_website>
+							<show_in_store>1</show_in_store>
+							<validate>validate-one-required</validate>
+							<config_path>payment/pagamentodigital_standard/emailID</config_path>
+						</emailID>
+						<token translate="label">
+							<label>Token</label>
+							<frontend_type>text</frontend_type>
+							<sort_order>5</sort_order>
+							<show_in_default>0</show_in_default>
+							<show_in_website>0</show_in_website>
+							<show_in_store>1</show_in_store>
+							<validate>validate-one-required</validate>
+							<config_path>payment/pagamentodigital_standard/token</config_path>
+						</token>
+						<link translate="label">
+							<label><![CDATA[
+                    <div><a href="https://www.pagamentodigital.com.br/site/PagamentoDigital/CriarConta/2800662" target="blank">
+                    <u>Cadastre sua conta de vendedor no Pagamento Digital</u></a>]]></label>
+							<frontend_type>Note</frontend_type>
+							<sort_order>1</sort_order>
+							<show_in_default>0</show_in_default>
+							<show_in_website>0</show_in_website>
+							<show_in_store>1</show_in_store>
+							<depends><emailID></emailID><token></token></depends>
+						</link>
+                    </fields>
+                </pagamentodigital>
+                <pagseguro translate="label">
+                    <label>PagSeguro</label>
+                    <frontend_type>text</frontend_type>
+                    <frontend_model>coobus_storemanager/admin_system_config_fieldset_set2</frontend_model>
+                    <depends><payment.pagseguro_standard.active>1</payment.pagseguro_standard.active></depends>
+                    <sort_order>1</sort_order>
+                    <show_in_default>0</show_in_default>
+                    <show_in_website>0</show_in_website>
+                    <show_in_store>0</show_in_store>                    
+                    <comment><![CDATA[
+                    <div><a href="https://pagseguro.uol.com.br/?ind=25520601" target="_blank"><img align="right" src="https://p.simg.uol.com.br/out/pagseguro/i/banners/indicacao/200x200_pagseguroUOL.gif" alt = "PagSeguro" border="0"></a></div>]]></comment>
+                    <fields>
+						<emailID translate="label">
+							<label>Conta (e-mail) do PagSeguro</label>
+							<frontend_type>text</frontend_type>
+							<sort_order>4</sort_order>
+							<show_in_default>0</show_in_default>
+							<show_in_website>0</show_in_website>
+							<show_in_store>1</show_in_store>
+							<validate>validate-one-required</validate>
+							<config_path>payment/pagseguro_standard/emailID</config_path>
+							<depends><active>1</active></depends>
+						</emailID>
+						<token translate="label">
+							<label>Token</label>
+							<frontend_type>text</frontend_type>
+							<sort_order>5</sort_order>
+							<show_in_default>0</show_in_default>
+							<show_in_website>0</show_in_website>
+							<show_in_store>1</show_in_store>
+							<validate>validate-one-required</validate>
+							<config_path>payment/pagseguro_standard/token</config_path>
+							<depends><active>1</active></depends>
+						</token>
+						<link translate="label">
+							<label><![CDATA[
+                    <div><a href="https://pagseguro.uol.com.br/?ind=25520601" target="blank">
+                    <u>Cadastre sua conta de vendedor no PagSeguro</u></a>]]></label>
+							<frontend_type>Note</frontend_type>
+							<sort_order>1</sort_order>
+							<show_in_default>0</show_in_default>
+							<show_in_website>0</show_in_website>
+							<show_in_store>1</show_in_store>
+							<depends><active>1</active><emailID></emailID><token></token></depends>
+						</link>
+                    </fields>
+                </pagseguro>
+                <money translate="label">
+                    <label>Check / Money Order</label>
+                    <frontend_type>text</frontend_type>
+                    <sort_order>2</sort_order>
+                    <show_in_default>0</show_in_default>
+                    <show_in_website>0</show_in_website>
+                    <show_in_store>0</show_in_store>
+                    <fields>
+                        <active translate="label">
+                            <label>Enabled</label>
+                            <frontend_type>select</frontend_type>
+                            <source_model>adminhtml/system_config_source_yesno</source_model>
+                            <sort_order>1</sort_order>
+                            <show_in_default>0</show_in_default>
+                            <show_in_website>0</show_in_website>
+                            <show_in_store>1</show_in_store>
+                            <config_path>payment/checkmo/active</config_path>
+                        </active>
+                        <payable_to translate="label">
+                            <label>Make Check Payable to</label>
+                            <sort_order>2</sort_order>
+                            <show_in_default>0</show_in_default>
+                            <show_in_website>0</show_in_website>
+                            <show_in_store>1</show_in_store>
+                            <validate>validate-one-required</validate>
+                            <config_path>payment/checkmo/payable_to</config_path>
+                            <depends><active>1</active></depends>
+                        </payable_to>
+                        <mailing_address translate="label">
+                            <label>Send Check to</label>
+                            <frontend_type>text</frontend_type>
+                            <sort_order>3</sort_order>
+                            <show_in_default>0</show_in_default>
+                            <show_in_website>0</show_in_website>
+                            <show_in_store>1</show_in_store>
+                            <validate>validate-one-required</validate>
+                            <depends><active>1</active></depends>
+                            <config_path>payment/checkmo/mailing_address</config_path>
+                        </mailing_address>
+                	</fields>
+            	</money>
+        	</groups>
+       	</store_payment>
+        <store_shipping translate="label" module="coobus_storemanager">
+        	<label>Shipping</label>
+            <tab>storemanager_module</tab>
+            <frontend_type>text</frontend_type>
+            <sort_order>50</sort_order>
+            <show_in_default>0</show_in_default>
+            <show_in_website>0</show_in_website>
+            <show_in_store>1</show_in_store>
+            <groups>
+                <origin translate="label">
+                    <label>Origin</label>
+                    <frontend_type>text</frontend_type>
+                    <sort_order>1</sort_order>
+                    <show_in_default>0</show_in_default>
+                    <show_in_website>0</show_in_website>
+                    <show_in_store>1</show_in_store>
+                    <fields>
+                        <postcode translate="label">
+                            <label>ZIP/Postal Code</label>
+                            <frontend_type>text</frontend_type>
+                            <sort_order>40</sort_order>
+                            <show_in_default>0</show_in_default>
+                            <show_in_website>0</show_in_website>
+                            <show_in_store>1</show_in_store>
+                            <validate>validate-one-required</validate>
+                            <config_path>shipping/origin/postcode</config_path>
+                        </postcode>
+                        <city translate="label">
+                            <label>City</label>
+                            <frontend_type>text</frontend_type>
+                            <sort_order>30</sort_order>
+                            <show_in_default>0</show_in_default>
+                            <show_in_website>0</show_in_website>
+                            <show_in_store>1</show_in_store>
+                            <config_path>shipping/origin/city</config_path>
+                        </city>
+                    </fields>
+                </origin>
+                <correios translate="label">
+                    <label>Correios</label>
+                    <frontend_type>text</frontend_type>
+                    <sort_order>2</sort_order>
+                    <show_in_default>0</show_in_default>
+                    <show_in_website>0</show_in_website>
+                    <show_in_store>1</show_in_store>
+                    <fields>
+                        <active translate="label">
+                            <label>Habilitar</label>
+                            <frontend_type>select</frontend_type>
+                            <source_model>adminhtml/system_config_source_yesno</source_model>
+                            <sort_order>10</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                            <config_path>carriers/pedroteixeira_correios/active</config_path>
+                        </active>
+                        <cod_admin translate="label">
+                            <label>Código Administrativo dos Correios (Serviços Com Contrato)</label>
+                            <frontend_type>text</frontend_type>
+                            <sort_order>1</sort_order>
+                            <show_in_default>0</show_in_default>
+                            <show_in_website>0</show_in_website>
+                            <show_in_store>1</show_in_store>
+                            <config_path>carriers/pedroteixeira_correios/cod_admin</config_path>
+                        </cod_admin>
+                        <senha_admin translate="label">
+                            <label>Senha Administrativa dos Correios (Serviços Com Contrato)</label>
+                            <frontend_type>text</frontend_type>
+                            <sort_order>2</sort_order>
+                            <show_in_default>0</show_in_default>
+                            <show_in_website>0</show_in_website>
+                            <show_in_store>1</show_in_store>
+                            <comment>O padrão de senha são os 8 primeiros dígitos do CNPJ</comment>
+                            <config_path>carriers/pedroteixeira_correios/senha_admin</config_path>
+                        </senha_admin>
+                        <mao_propria translate="label">
+                            <label>Utilizar Serviço de Mão Própria</label>
+                            <frontend_type>select</frontend_type>
+                            <source_model>adminhtml/system_config_source_yesno</source_model>
+                            <sort_order>3</sort_order>
+                            <show_in_default>0</show_in_default>
+                            <show_in_website>0</show_in_website>
+                            <show_in_store>1</show_in_store>
+							<config_path>carriers/pedroteixeira_correios/mao_propria</config_path>
+                        </mao_propria>
+                        <aviso_recebimento translate="label">
+                            <label>Utilizar Serviço de Aviso de Recebimento</label>
+                            <frontend_type>select</frontend_type>
+                            <source_model>adminhtml/system_config_source_yesno</source_model>
+                            <sort_order>4</sort_order>
+                            <show_in_default>0</show_in_default>
+                            <show_in_website>0</show_in_website>
+                            <show_in_store>1</show_in_store>
+							<config_path>carriers/pedroteixeira_correios/aviso_recebimento</config_path>
+                        </aviso_recebimento>
+                        <valor_declarado translate="label">
+                            <label>Utilizar Serviço de Valor Declarado</label>
+                            <frontend_type>select</frontend_type>
+                            <source_model>adminhtml/system_config_source_yesno</source_model>
+                            <sort_order>5</sort_order>
+                            <show_in_default>0</show_in_default>
+                            <show_in_website>0</show_in_website>
+                            <show_in_store>1</show_in_store>
+							<config_path>carriers/pedroteixeira_correios/valor_declarado</config_path>
+                        </valor_declarado>
+						<handling_fee translate="label">
+                            <label>Taxa de Postagem</label>
+                            <frontend_type>text</frontend_type>
+                            <sort_order>6</sort_order>
+                            <show_in_default>0</show_in_default>
+                            <show_in_website>0</show_in_website>
+                            <show_in_store>1</show_in_store>
+							<config_path>carriers/pedroteixeira_correios/handling_fee</config_path>
+                            <comment>Essa taxa será adicionada ao valor do frete.</comment>
+                        </handling_fee>
+                        <add_prazo translate="label">
+                            <label>Adicionar ao prazo dos Correios (dias)</label>
+                            <frontend_type>text</frontend_type>
+                            <sort_order>7</sort_order>
+                            <show_in_default>0</show_in_default>
+                            <show_in_website>0</show_in_website>
+                            <show_in_store>1</show_in_store>
+							<config_path>carriers/pedroteixeira_correios/add_prazo</config_path>
+                            <comment>Adicionará mais dias aos prazos fornecidos pelos Correios.</comment>
+                        </add_prazo>
+                    </fields>
+                </correios>
+                <freeshipping translate="label">
+                    <label>Entrega Grátis ou Retira na Loja</label>
+                    <frontend_type>text</frontend_type>
+                    <sort_order>4</sort_order>
+                    <show_in_default>1</show_in_default>
+                    <show_in_website>1</show_in_website>
+                    <show_in_store>1</show_in_store>
+                    <fields>
+                        <active translate="label">
+                            <label>Enabled</label>
+                            <frontend_type>select</frontend_type>
+                            <source_model>adminhtml/system_config_source_yesno</source_model>
+                            <sort_order>1</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                            <config_path>carriers/freeshipping/active</config_path>
+                        </active>
+                        <free_shipping_subtotal translate="label">
+                            <label>Minimum Order Amount</label>
+                            <frontend_type>text</frontend_type>
+                            <sort_order>4</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                            <config_path>carriers/freeshipping/free_shipping_subtotal</config_path>
+                        </free_shipping_subtotal>
+                        <title translate="label">
+                            <label>Title</label>
+                            <frontend_type>select</frontend_type>
+                            <source_model>coobus_storemanager/source_free_title</source_model>
+                            <sort_order>2</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+							<config_path>carriers/freeshipping/title</config_path>
+                        </title>
+                    </fields>
+                </freeshipping>
+        	</groups>
+       	</store_shipping>
+       	<sales>
+       		<groups>
+       	        <minimum_order>
+                    <fields>
+                        <active>
+                            <show_in_store>1</show_in_store>
+                        </active>
+                        <amount>
+                            <show_in_store>1</show_in_store>
+                        </amount>
+                   	</fields>
+                </minimum_order>
+       		</groups>
+       	</sales>
+       	<admin>
+       		<groups>
+                <security>
+                    <show_in_default>1</show_in_default>
+                    <show_in_website>1</show_in_website>
+                    <show_in_store>0</show_in_store>
+                    <fields>
+                        <default_user_role translate="label, comment">
+                            <label>Default User Role</label>
+                            <comment>Set the default user role to be assigned on automated user creation in back-end</comment>
+                            <frontend_type>select</frontend_type>
+                            <source_model>coobus_storemanager/source_roles</source_model>
+                            <sort_order>10</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>0</show_in_website>
+                            <show_in_store>0</show_in_store>
+                        </default_user_role>
+                    </fields>
+                </security>
+            </groups>
+       	</admin>
+    </sections>
+</config>
