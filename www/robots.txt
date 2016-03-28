@@ -1,0 +1,8 @@
+User-Agent: Linguee
+Disallow: /*
+
+User-Agent: Linguee Bot
+Disallow: /*
+
+User-Agent: bingbot/2.0
+Disallow: /*
