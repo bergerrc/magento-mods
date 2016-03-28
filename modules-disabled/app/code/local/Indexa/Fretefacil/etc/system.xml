@@ -1,0 +1,89 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * Indexa Frete Facil
+ *
+ * @category   Shipping Method
+ * @package    Indexa_Fretefacil
+ * @author     Indexa Team <desenvolvimento@indexainternet.com.br>
+ * @copyright  Copyright (c) 2011 Indexa
+ */
+-->
+<config>
+    <sections>
+        <carriers>
+            <groups>
+                <indexafretefacil translate="label" module="shipping">
+                    <label><![CDATA[Indexa Frete F&aacute;cil]]></label>
+                    <frontend_type>text</frontend_type>
+                    <sort_order>1</sort_order>
+                    <show_in_default>1</show_in_default>
+                    <show_in_website>1</show_in_website>
+                    <show_in_store>1</show_in_store>
+                    <fields>
+                        <active translate="label">
+                            <label>Enabled</label>
+                            <frontend_type>select</frontend_type>
+                            <source_model>adminhtml/system_config_source_yesno</source_model>
+                            <sort_order>1</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                        </active>
+                        <title translate="label">
+                            <label>Title</label>
+                            <frontend_type>text</frontend_type>
+                            <sort_order>2</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                        </title>
+                        <description translate="label">
+                            <label>Description</label>
+                            <frontend_type>text</frontend_type>
+                            <sort_order>3</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                        </description>
+                        <error_shipping translate="label">
+                            <label>Mensagem de Erro 1</label>
+                            <frontend_type>textarea</frontend_type>
+                            <sort_order>4</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                            <comment><![CDATA[Define mensagem de erro a ser exibida por falha na comunicação com o serviço.]]></comment> 
+                        </error_shipping>
+                        <error_payment translate="label">
+                            <label>Mensagem de Erro 2</label>
+                            <frontend_type>textarea</frontend_type>
+                            <sort_order>5</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                            <comment><![CDATA[Define mensagem de erro a ser exibida por falha na escolha do método de pagamento.]]></comment> 
+                        </error_payment>
+                        <sort_order translate="label">
+                            <label><![CDATA[N&uacute;mero de Ordena&ccedil;&atilde;o]]></label>
+                            <frontend_type>text</frontend_type>
+                            <sort_order>6</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                        </sort_order>
+                        <test_mode translate="label">
+                            <label>Test Mode</label>
+                            <frontend_type>select</frontend_type>
+                            <source_model>adminhtml/system_config_source_yesno</source_model>
+                            <sort_order>7</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                       </test_mode>
+                    </fields>
+                </indexafretefacil>
+            </groups>
+        </carriers>
+    </sections>
+</config>

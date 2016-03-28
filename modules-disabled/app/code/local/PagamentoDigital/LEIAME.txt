@@ -1,0 +1,27 @@
+== Instruções de instalação ==
+
+1) Copie o arquivo PagamentoDigital.xml para dentro de path-magento/app/etc/modules
+2) Copie a pasta PagamentoDigital para dentro de path-magento/app/code/community
+3) Entre no modo de administração do Magento e ative o módulo Pagamento Digital. Para isso:
+	a) Vá no menu "Sistema" e escolha a opção "Configuração".
+	b) Clique em "Métodos de Pagamento", no grupo "Vendas", localizado do lado direito da página.
+	c) Clique na guia "PagamentoDigital", habilite o módulo e faça a sua configuração. Leia a seção Configuração.
+
+Onde "path-magento" é o caminho no qual o Magento está instalado.
+
+Observação: 
+
+1) Se o módulo Pagamento Digital não aparecer na página de configuração, é necessário limpar o cache do Magento. Para tal:
+	a) Vá no menu "Sistema" e escolha a opção "Cache Management".
+	b) Na caixa "All Cache", localizada no grupo "Cache Control", escolha a opção "Atualizar" ou "Refresh".
+	c) Clique no botão "Salvar configurações de cache". 
+
+
+== Configuração ==
+
+Os campos mais importantes são:
+
+1) Conta do Pagamento Digital - digite o e-mail que você usou para se cadastrar no Pagamento Digital
+2) Token - essa informação pode ser obtida no painel de controle do Pagamento Digital
+3) URL de Retorno - após o cliente efetuar o pagamento na página do Pagamento Digital, ele será redirecionado para o endereço indicado neste campo, ou seja, a página de confirmação da sua loja virtual. Ex: www.seu-domínio.com.br/checkout/onepage/success. Deixe este campo em branco caso você não queira que o comprador retorne à página da sua loja virtual.
+

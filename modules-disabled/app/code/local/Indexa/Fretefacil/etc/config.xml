@@ -1,0 +1,89 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * Indexa Frete Facil
+ *
+ * @category   Shipping Method
+ * @package    Indexa_Fretefacil
+ * @author     Indexa Team <desenvolvimento@indexainternet.com.br>
+ * @copyright  Copyright (c) 2011 Indexa
+ */
+-->
+<config>
+    <modules>
+        <Indexa_Fretefacil>
+            <version>0.1.0</version>
+            <depends>
+                <Mage_Shipping />
+            </depends>
+        </Indexa_Fretefacil>
+    </modules>
+    <default>
+        <carriers>
+            <indexafretefacil>
+                <error_shipping>Ocorreu um erro na comunicação com o serviço. Se você deseja utilizar este método contate-nos.</error_shipping>
+                <error_payment>Frete Fácil libera apenas pagamentos usando os métodos Paypal.</error_payment>
+            </indexafretefacil>
+        </carriers>
+    </default>
+    <global>
+        <resources>
+            <fretefacil_setup>
+                <setup>
+                    <module>Indexa_Fretefacil</module>
+                </setup>
+                <connection>
+                    <use>directory_setup</use>
+                </connection>
+            </fretefacil_setup>
+            <fretefacil_read>
+                <connection>
+                    <use>core_read</use>
+                </connection>
+            </fretefacil_read>
+            <fretefacil_write>
+                <connection>
+                    <use>core_write</use>
+                </connection>
+            </fretefacil_write>
+        </resources>
+        <sales>
+            <shipping>
+                <carriers>
+                    <indexafretefacil>
+                        <class>Indexa_Fretefacil_Model_Carrier_Indexafretefacil</class>
+                    </indexafretefacil>
+                </carriers>
+            </shipping>
+        </sales>
+        <models>
+          <checkout>
+              <rewrite>
+                    <type_onepage>Indexa_Fretefacil_Model_Checkout_Type_Onepage</type_onepage>
+              </rewrite>
+          </checkout>
+        </models>
+    </global>
+    <frontend>
+        <layout>
+            <updates>
+                <fretefacil>
+                    <file>indexa_fretefacil.xml</file>
+                </fretefacil>
+            </updates>
+        </layout>
+    </frontend>
+    <default>
+        <carriers>
+            <indexafretefacil>
+                <active>0</active>
+                <sallowspecific>0</sallowspecific>
+                <model>Indexa_Fretefacil_model_carrier_indexafretefacil</model>
+                <name><![CDATA[Frete F&aacute;cil]]></name>
+                <title><![CDATA[Frete F&aacute;cil]]></title>
+                <test_mode>0</test_mode>
+                <specificerrmsg><![CDATA[Houve uma falha moment&acirc;nea ao obter os custos de envio. Por favor, tente novamente.]]></specificerrmsg>
+            </indexafretefacil>
+        </carriers>
+    </default>
+</config>

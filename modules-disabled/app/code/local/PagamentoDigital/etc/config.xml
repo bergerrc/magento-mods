@@ -1,0 +1,117 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * Guilherme Dutra
+ *
+ * NOTICE OF LICENSE
+ *
+ * This source file is subject to the Open Software License (OSL).
+ * It is also available through the world-wide-web at this URL:
+ * http://opensource.org/licenses/osl-3.0.php
+ *
+ * @category   Payment Gateway
+ * @package    Pagamento Digital
+ * @copyright  Copyright (c) 2008 WebLibre [http://www.weblibre.com.br]  - Guilherme Dutra [ godutra@gmail.com ]
+ * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
+ */
+-->
+<config>
+    <modules>
+        <pagamentodigital>
+            <version>0.2.0</version>          
+        </pagamentodigital>
+    </modules>
+    <global>
+        <models>
+            <pagamentodigital>
+                <class>PagamentoDigital_Model</class>
+                <resourceModel>pagamentodigital_mysql4</resourceModel>
+            </pagamentodigital>
+            <pagamentodigital_mysql4>
+                <class>PagamentoDigital_Model_Mysql4</class>
+                <entities>
+                    <api_debug><table>pagamentodigital_api_debug</table></api_debug>
+                </entities>
+            </pagamentodigital_mysql4>
+			<pagamentodigital_mysql4>
+                <class>PagamentoDigital_Model_Mysql4</class>
+                <entities>
+                    <pagamentodigital_return><table>pagamentodigital</table></pagamentodigital_return>
+                </entities>
+            </pagamentodigital_mysql4>
+        </models>
+        <resources>
+            <pagamentodigital_setup>
+                <setup>
+                    <module>PagamentoDigital</module>
+                    <class>PagamentoDigital_Model_Mysql4_Setup</class>
+                </setup>
+                <connection>
+                    <use>core_setup</use>
+                </connection>
+            </pagamentodigital_setup>
+            <pagamentodigital_write>
+                <connection>
+                    <use>core_write</use>
+                </connection>
+            </pagamentodigital_write>
+            <pagamentodigital_read>
+                <connection>
+                    <use>core_read</use>
+                </connection>
+            </pagamentodigital_read>
+        </resources>
+        <blocks>
+            <pagamentodigital><class>PagamentoDigital_Block</class></pagamentodigital>
+        </blocks>
+    </global>
+    <frontend>      
+        <routers>
+            <pagamentodigital>
+                <use>standard</use>
+                <args>
+                    <module>PagamentoDigital</module>
+                    <frontName>PagamentoDigital</frontName>
+                </args>
+            </pagamentodigital>
+        </routers>
+        <translate>
+            <modules>
+                <pagamentodigital>
+                    <files>
+                        <default>pagamentodigital.csv</default>
+                    </files>
+                </pagamentodigital>
+            </modules>
+        </translate>
+        <layout>
+            <updates>
+                <pagamentodigital>
+                    <file>pagamentodigital.xml</file>
+                </pagamentodigital>
+            </updates>
+        </layout>
+    </frontend>
+    <adminhtml>
+        <translate>
+            <modules>
+                <pagamentodigital>
+                    <files>
+                        <default>pagamentodigital.csv</default>
+                    </files>
+                </pagamentodigital>
+            </modules>
+        </translate>        
+    </adminhtml>
+
+    <default>
+         <payment>
+             <pagamentodigital_standard>
+                  <model>PagamentoDigital_Model_Standard</model>
+                  <title>Pagamento Digital</title>
+                  <allowspecific>1</allowspecific>                  
+				  <retorno>www.seudominio.com.br/checkout/onepage/success</retorno>
+            </pagamentodigital_standard>
+        </payment>
+    </default>
+</config>
