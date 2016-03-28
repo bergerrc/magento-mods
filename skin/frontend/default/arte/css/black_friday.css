@@ -1,0 +1,20 @@
+.price-box .price { font-size:13px; font-weight:bold; color:#396f00 !important; text-decoration:line-through;}
+.regular-price .price { font-size:13px; font-weight:bold; color:#396f00; text-decoration:line-through; }
+
+.old-price .price-label { font-size:11 px !important; font-weight:normal; white-space:nowrap; }
+.old-price .price { font-weight:bold; font-size:13px; color:#396f00; text-decoration:line-through; }
+
+.special-price .price-label { font-size:11px !important; text-transform:uppercase; white-space:nowrap; color:#000; font-weight:normal; }
+.special-price .price { font-size:13px; font-weight:bold; color:#396f00; text-decoration:line-through;}
+
+/* Black Friday */
+.black-friday-price { margin:0; padding-bottom: 10px }
+.black-friday-price .price-label { font-size:10px; font-weight:bold; text-transform:uppercase; white-space:nowrap; color:#000; }
+.black-friday-price .price { font-size:13px; font-weight:bold; color:#f00 !important; text-decoration:none;}
+
+/* Price range */
+.price-from .price-label { font-size:11px !important; white-space:nowrap; font-weight:normal;}
+.price-from .price {color:#396f00; text-decoration:line-through;}
+
+.price-to { margin:0; display: none;}
+.price-to .price-label { font-size:11px;  white-space:nowrap; }

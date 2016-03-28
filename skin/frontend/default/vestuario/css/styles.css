@@ -1,0 +1,14 @@
+@import url(../../coobus/css/basic.css);
+body{ 
+	background: url(../images/bkg_body_custom.jpg) repeat-x fixed;
+	background-size: cover;
+}
+
+.products-grid li.item .product-image {height:180px; border-width:0px 0px 0px 0;}
+/*.products-grid li.item:hover {padding:0 0 74px;}*/
+
+/*TESTE
+.products-grid li.item { border:1px solid;}
+.products-grid .product-image {border:1px solid red;}
+*/
+

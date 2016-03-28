@@ -1,0 +1,13 @@
+@import url(../../modern/css/styles-ie.css);
+
+.top-banner,
+.catalog-tabs-content,
+#catalog-tabs,
+#catalog-tabs li,
+#catalog-tabs a,
+#catalog-tabs li.active a,
+#catalog-tabs a.tab-item-link,
+#catalog-tabs li > a.tab-item-link.active,
+.storelogo,
+.products-grid .item .actions,
+.storebanner { zoom: 1;}

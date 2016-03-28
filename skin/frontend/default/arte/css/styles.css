@@ -1,0 +1,7 @@
+@import url(../../coobus/css/basic.css);
+body          { 
+background: url(../images/bg.jpg) center top repeat;
+
+}
+.products-grid li.item { float:left; }
+/*.products-grid li.item:hover {padding:0 0 74px;}*/
