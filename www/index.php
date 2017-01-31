@@ -34,7 +34,7 @@ if (version_compare(phpversion(), '5.2.0', '<')===true) {
  */
 error_reporting(E_ALL | E_STRICT);
 
-$mageBase = isset($_SERVER['MAGENTO_BASE']) ? $_SERVER['MAGENTO_BASE'] : './../magento/magento-1.5.1.0';
+$mageBase = isset($_SERVER['MAGENTO_BASE']) ? $_SERVER['MAGENTO_BASE']: '';
 
 /**
  * Compilation includes configuration file
@@ -73,14 +73,16 @@ if (isset($_SERVER['MAGE_IS_DEVELOPER_MODE'])) {
     Mage::setIsDeveloperMode(true);
 }
 
-#ini_set('display_errors', 1);
+ini_set('display_errors', 1);
 
 umask(0);
 
 /* Store or website code */
-$mageRunCode = isset($_SERVER['MAGE_RUN_CODE']) ? $_SERVER['MAGE_RUN_CODE'] : '';
+$mageRunCode = isset($_SERVER['MAGE_RUN_CODE']) ? $_SERVER['MAGE_RUN_CODE']: '';
 
 /* Run store or run website */
-$mageRunType = isset($_SERVER['MAGE_RUN_TYPE']) ? $_SERVER['MAGE_RUN_TYPE'] : 'store';
+$mageRunType = isset($_SERVER['MAGE_RUN_TYPE']) ? $_SERVER['MAGE_RUN_TYPE']: 'store';
+
 
 Mage::run($mageRunCode, $mageRunType);
+
